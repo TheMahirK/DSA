@@ -1,3 +1,12 @@
+/*
+
+Program Name : Median of two sorted arrays
+Program Description : Given two sorted arrays of any size n and m , n,m >= 0
+Goal is to find the median of combination both sorted arrays in sorted order
+Median : middle value of all elements
+
+*/
+
 #include <iostream>
 using namespace std;
 
@@ -9,6 +18,16 @@ void display(vector<int> &arr)
     }
     cout << endl;
 }
+
+/*
+
+1. Algorithm Used : Brute force / Obvious
+   Time Complexity : O(n + m)
+   Auxiliary Space Requirement : O(1)
+   Intuition : Use the algorithm merge used in merge sort, and check for median condition
+   If total combined elements are even , median is average of two middle values
+
+*/
 
 int getMedian1(vector<int> &arr1, vector<int> &arr2)
 {
@@ -97,13 +116,9 @@ int main()
     cout << "Array2 : ";
     display(arr2);
 
-
-
     int median = getMedian1(arr1, arr2);
 
     cout << "Median of Array1 and Array2 : " << median;
-
-    
 
     return 0;
 }
