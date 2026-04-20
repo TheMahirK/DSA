@@ -29,7 +29,7 @@ void display(vector<int> &arr)
 
 */
 
-int getMedian1(vector<int> &arr1, vector<int> &arr2)
+double getMedian1(vector<int> &arr1, vector<int> &arr2)
 {
     int n1 = arr1.size();
     int n2 = arr2.size();
@@ -105,6 +105,64 @@ int getMedian1(vector<int> &arr1, vector<int> &arr2)
     return (double)(double(ele1 + ele2) / 2.0);
 }
 
+/*
+
+2. Algorithm Used : Optimal
+   Time Complexity : O(log[min(m,n)])
+   Auxiliary Space Requirement : O(1)
+   Intuition : Apply binary search on smaller array to partition both arrays
+   such that left half has equal elements and all left elements are <= right elements.
+   If partition is valid, compute median using boundary elements.
+   Otherwise adjust search space.
+
+*/
+
+double getMedian2(vector<int> &arr1, vector<int> &arr2)
+{
+    int n1 = arr1.size(), n2 = arr2.size();
+    if (n1 > n2)
+    {
+        return getMedian2(arr2, arr1);
+    }
+
+    int n = n1 + n2, low = 0, high = n1;
+    int left = (n1 + n2 + 1) / 2;
+
+    while (low <= high)
+    {
+        int mid1 = (low + (high - low) / 2);
+        int mid2 = left - mid1;
+        int l1 = INT_MIN, l2 = INT_MIN;
+        int r1 = INT_MAX, r2 = INT_MAX;
+
+        if (mid1 < n1)
+            r1 = arr1[mid1];
+        if (mid2 < n2)
+            r2 = arr2[mid2];
+        if (mid1 - 1 >= 0)
+            l1 = arr1[mid1 - 1];
+        if (mid2 - 1 >= 0)
+            l2 = arr2[mid2 - 1];
+
+        if (l1 <= r2 && l2 <= r1)
+        {
+            if (n % 2 == 1)
+            {
+                return max(l1, l2);
+            }
+            return ((double)(max(l1, l2) + min(r1, r2)) / 2.0);
+        }
+
+        else if (l1 > r2)
+            high = mid1 - 1;
+
+        else
+            low = mid1 + 1;
+    }
+
+    return 0;
+}
+
 int main()
 {
 
@@ -116,7 +174,7 @@ int main()
     cout << "Array2 : ";
     display(arr2);
 
-    int median = getMedian1(arr1, arr2);
+    double median = getMedian2(arr1, arr2);
 
     cout << "Median of Array1 and Array2 : " << median;
 
