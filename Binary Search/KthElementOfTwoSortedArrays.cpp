@@ -24,7 +24,7 @@ void display(vector<int> &arr)
    Time Complexity : O(n+m)
    Auxiliary Space Requirement : O(1)
    Intuition : Use similar technique as merge sort to merge arrays and keep count of how many elements
-   merged. When count reaches k , we find the kth element in the sortedcombination of two sorted arrays
+   merged. When count reaches k , we find the kth element in the sorted combination of two sorted arrays
 
    Note : when k == (m+n), last element of sorted combination, we return max(last ele arr1 , last ele arr2)
    When
