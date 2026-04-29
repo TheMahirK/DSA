@@ -1,31 +1,28 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
-template <typename T>
 class Node
 {
 public:
-    T data;
-    Node<T> *next;
+    int data;
+    Node *next;
 
-    Node(T data, Node<T> *next)
+    Node(int data, Node *next)
     {
         this->data = data;
         this->next = next;
     }
 
-    Node(T data)
+    Node(int data)
     {
         this->data = data;
         this->next = nullptr;
     }
 };
 
-template <typename T>
-void display(Node<T> *head)
+void display(Node *head)
 {
-    Node<T> *c = head;
+    Node *c = head;
     while (c)
     {
         cout << c->data << ' ';
@@ -34,10 +31,9 @@ void display(Node<T> *head)
     cout << endl;
 }
 
-template <typename T>
-int countNodes(Node<T> *head)
+int countNodes(Node *head)
 {
-    Node<T> *c = head;
+    Node *c = head;
     int count = 0;
 
     while (c)
@@ -49,29 +45,27 @@ int countNodes(Node<T> *head)
     return count;
 }
 
-template <typename T>
-Node<T> *arrToLinkedList(vector<T> &arr)
+Node *arrToLinkedList(vector<int> &arr)
 {
     if (arr.empty())
         return nullptr;
 
-    Node<T> *head = new Node<T>(arr[0]);
-    Node<T> *c = head;
+    Node *head = new Node(arr[0]);
+    Node *c = head;
 
     for (int i = 1; i < arr.size(); i++)
     {
-        Node<T> *temp = new Node<T>(arr[i]);
+        Node *temp = new Node(arr[i]);
         c->next = temp;
         c = c->next;
     }
     return head;
 }
 
-template <typename T>
-Node<T> *middleNode(Node<T> *head)
+Node *middleNode(Node *head)
 {
-    Node<T> *slow = head;
-    Node<T> *fast = head;
+    Node *slow = head;
+    Node *fast = head;
 
     while (fast && fast->next)
     {
@@ -81,23 +75,21 @@ Node<T> *middleNode(Node<T> *head)
     return slow;
 }
 
-template <typename T>
-Node<T> *insertAtBegin(Node<T> *head, T val)
+Node *insertAtBegin(Node *head, int val)
 {
-    Node<T> *temp = new Node<T>(val);
+    Node *temp = new Node(val);
     temp->next = head;
     return temp;
 }
 
-template <typename T>
-Node<T> *insertAtEnd(Node<T> *head, T val)
+Node *insertAtEnd(Node *head, int val)
 {
-    Node<T> *temp = new Node<T>(val);
+    Node *temp = new Node(val);
 
     if (head == nullptr)
         return temp;
 
-    Node<T> *c = head;
+    Node *c = head;
     while (c->next)
         c = c->next;
 
@@ -105,109 +97,137 @@ Node<T> *insertAtEnd(Node<T> *head, T val)
     return head;
 }
 
-template <typename T>
-Node<T> *insertAtPos(Node<T> *head, int pos, T val)
+Node *insertAtPos(Node *head, int pos, int val)
 {
-    if(pos == 1)
+    if (pos == 1)
     {
         return insertAtBegin(head, val);
     }
 
-    Node<T> *c = head;
+    Node *c = head;
 
-    for(int i=1; i<=pos-2; i++)
+    for (int i = 1; i <= pos - 2; i++)
     {
-        if(c == nullptr)
+        if (c == nullptr)
         {
             return head;
         }
         c = c->next;
     }
-    Node<T> *temp = new Node<T>(val);
+    Node *temp = new Node(val);
     temp->next = c->next;
     c->next = temp;
     return head;
 }
 
-template <typename T>
-Node<T> *deleteAtBegin(Node<T> *head)
+Node *deleteAtBegin(Node *head)
 {
-    if(head == nullptr)
+    if (head == nullptr)
     {
         return head;
     }
 
-    Node<T> *temp = head;
+    Node *temp = head;
     head = head->next;
     delete temp;
     return head;
 }
 
-template <typename T>
-Node<T> *deleteAtEnd(Node<T> *head)
+Node *deleteAtEnd(Node *head)
 {
-    if(head == nullptr)
+    if (head == nullptr)
     {
         return head;
     }
 
-    else if(head->next == nullptr)
+    else if (head->next == nullptr)
     {
         delete head;
         return nullptr;
     }
 
-    Node<T> *c = head;
+    Node *c = head;
 
-    while(c->next->next)
+    while (c->next->next)
     {
         c = c->next;
     }
-    Node<T> *temp = c->next;
+    Node *temp = c->next;
     c->next = nullptr;
     delete temp;
     return head;
 }
 
-template <typename T>
-
-Node<T> *deleteAtPos(Node<T> *head, int pos)
+Node *deleteAtPos(Node *head, int pos)
 {
-    if(head == nullptr)
+    if (head == nullptr)
     {
         return head;
     }
-    if(pos == 1)
+    if (pos == 1)
     {
         return deleteAtBegin(head);
     }
 
-    Node<T> *c = head;
+    Node *c = head;
 
-    for(int i=1; i<=pos-2; i++)
+    for (int i = 1; i <= pos - 2; i++)
     {
-        if(c->next == nullptr)
+        if (c->next == nullptr)
         {
             return head;
         }
         c = c->next;
     }
-    
-    if(c->next == nullptr)
+
+    if (c->next == nullptr)
     {
         return head;
     }
 
-    Node<T> *temp = c->next;
+    Node *temp = c->next;
     c->next = c->next->next;
     delete temp;
     return head;
 }
 
+Node *deleteValue(Node *head, int val)
+{
+    while (head != nullptr && head->data == val)
+    {
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    if (head == nullptr)
+    {
+        return head;
+    }
+
+    Node *c = head;
+
+    while (c->next != nullptr)
+    {
+        if (c->next->data == val)
+        {
+            Node *temp = c->next;
+            c->next = c->next->next;
+            delete temp;
+        }
+        else
+        {
+            c = c->next;
+        }
+    }
+
+    return head;
+}
+
 int main()
 {
-    vector<int> arr = {1,2,3,4,5,6};
-    Node<int> *head = arrToLinkedList(arr);
+    vector<int> arr = {5, 1, 2, 5, 5, 3, 4, 5, 5, 5};
+    Node *head = arrToLinkedList(arr);
 
     display(head);
 
@@ -230,6 +250,9 @@ int main()
     display(head);
 
     head = deleteAtPos(head, 7);
+    display(head);
+
+    head = deleteValue(head, 5);
     display(head);
 
     return 0;
