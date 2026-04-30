@@ -224,9 +224,37 @@ Node *deleteValue(Node *head, int val)
     return head;
 }
 
+Node *insertBeforeValue(Node *head, int val, int x)
+{
+    if (head == nullptr)
+    {
+        return head;
+    }
+
+    else if (head->data == val)
+    {
+        return new Node(x, head);
+    }
+
+    Node *c = head;
+
+    while (c->next != nullptr)
+    {
+        if (c->next->data == val)
+        {
+            Node *temp = new Node(x);
+            temp->next = c->next;
+            c->next = temp;
+            break;
+        }
+        c = c->next;
+    }
+    return head;
+}
+
 int main()
 {
-    vector<int> arr = {5, 1, 2, 5, 5, 3, 4, 5, 5, 5};
+    vector<int> arr = {12, 5, 7, 3, 2, 11};
     Node *head = arrToLinkedList(arr);
 
     display(head);
@@ -234,25 +262,7 @@ int main()
     int totalNodes = countNodes(head);
     cout << "Total Nodes : " << totalNodes << endl;
 
-    head = insertAtBegin(head, 0);
-    display(head);
-
-    head = insertAtEnd(head, 7);
-    display(head);
-
-    head = insertAtPos(head, 9, 8);
-    display(head);
-
-    head = deleteAtBegin(head);
-    display(head);
-
-    head = deleteAtEnd(head);
-    display(head);
-
-    head = deleteAtPos(head, 7);
-    display(head);
-
-    head = deleteValue(head, 5);
+    head = insertBeforeValue(head, 2, 100);
     display(head);
 
     return 0;
