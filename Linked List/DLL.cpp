@@ -34,7 +34,7 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrToLinkedList(vector<int> &arr)
+Node *arrToDoublyLinkedList(vector<int> &arr)
 {
     if (arr.empty())
         return nullptr;
@@ -285,7 +285,7 @@ int main()
     vector<int> arr = {11, 12, 5, 7, 3, 2, 11};
     // vector<int> arr = {1,11,11,11};
 
-    Node *head = arrToLinkedList(arr);
+    Node *head = arrToDoublyLinkedList(arr);
 
     // Node *head = new Node(12);
 
