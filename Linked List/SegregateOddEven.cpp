@@ -5,6 +5,8 @@ Problem Description : Given a singly Linked List
 Arrange the linked list such that all even elements come before all odd
 elements without changing the order of all even elements and odd elements
 
+Problem Link : https://www.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list5035/1
+
 */
 
 #include <iostream>
