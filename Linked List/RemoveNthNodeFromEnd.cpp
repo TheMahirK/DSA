@@ -124,15 +124,69 @@ Node *removeNthFromEnd1(Node *head, int n)
     return head;
 }
 
+/*
+
+2. Algorithm Used : Optimal
+   Time Complexity : O(N)
+   Auxiliary Space Requirement : O(1)
+   Intuition : Use two pointers , fast pointer n+1 nodes ahead of slow pointer
+   when fast pointer reach end, the slow pointer reach one node before nth node from last
+   delete nth node and return head
+
+*/
+
+Node *removeNthFromEnd2(Node *head, int n)
+{
+    if (head == nullptr || n <= 0)
+    {
+        return head;
+    }
+
+    Node *fast = head;
+    Node *slow = head;
+
+    int steps = 0;
+
+    for (; steps < n && fast != nullptr; steps++)
+    {
+        fast = fast->next;
+    }
+
+    if (steps < n)
+    {
+        return head;
+    }
+
+    if (fast == nullptr)
+    {
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+        return head;
+    }
+
+    while (fast->next != nullptr)
+    {
+        fast = fast->next;
+        slow = slow->next;
+    }
+
+    Node *temp = slow->next;
+    slow->next = slow->next->next;
+    delete temp;
+
+    return head;
+}
+
 int main()
 {
     vector<int> arr = {9, 8, 7, 6, 5, 4, 3, 2, 1};
     Node *head = arrToLinkedList(arr);
     display(head);
 
-    int n = 8;
+    int n = 100;
 
-    head = removeNthFromEnd1(head, n);
+    head = removeNthFromEnd2(head, n);
     display(head);
 
     return 0;
