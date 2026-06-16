@@ -62,7 +62,16 @@ Node *arrayToLL(vector<int> &arr)
     return head;
 }
 
-Node *addTwoNumbers1(Node *head1, Node *head2)
+/*
+Intuition : Since the answer has to be in reversed order only and no leading zeroes are there in both
+the lists , we can start adding from left side (from heads) of both linked lists, carrying any carryover
+
+Algorithm Used : Optimal
+Time Complexity : O(max(N1,N2)), N1 = no. of digits in first number , N2 = no. of digits in second number
+Auxiliary Space Requirement : O(max(N1, N2)) for storing and returing the answer;
+*/
+
+Node *addTwoNumbers(Node *head1, Node *head2)
 {
     if (head1 == nullptr)
     {
@@ -119,7 +128,7 @@ int main()
     Node *head2 = arrayToLL(arr2);
     display(head2);
 
-    Node *head = addTwoNumbers1(head1, head2);
+    Node *head = addTwoNumbers(head1, head2);
     display(head);
 
     return 0;
