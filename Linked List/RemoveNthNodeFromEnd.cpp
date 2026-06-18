@@ -159,6 +159,7 @@ Node *removeNthFromEnd2(Node *head, int n)
 
     if (fast == nullptr)
     {
+
         Node *temp = head;
         head = head->next;
         delete temp;
@@ -184,7 +185,7 @@ int main()
     Node *head = arrToLinkedList(arr);
     display(head);
 
-    int n = 100;
+    int n = 10;
 
     head = removeNthFromEnd2(head, n);
     display(head);
