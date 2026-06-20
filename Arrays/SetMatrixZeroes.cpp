@@ -5,9 +5,9 @@ void display(vector<vector<int>> &arr)
 {
     int n = arr.size();
     int m = arr[0].size();
-    for(auto row : arr)
+    for (auto row : arr)
     {
-        for(auto x : row)
+        for (auto x : row)
         {
             cout << x << ' ';
         }
@@ -19,9 +19,9 @@ void display(vector<vector<int>> &arr)
 void setRowZeroes(vector<vector<int>> &arr, int i)
 {
     int m = arr[i].size();
-    for(int j=0; j<m; j++)
+    for (int j = 0; j < m; j++)
     {
-        if(arr[i][j] != 0)
+        if (arr[i][j] != 0)
         {
             arr[i][j] = -1;
         }
@@ -31,9 +31,9 @@ void setRowZeroes(vector<vector<int>> &arr, int i)
 void setColumnZeroes(vector<vector<int>> &arr, int j)
 {
     int n = arr.size();
-    for(int i=0; i<n; i++)
+    for (int i = 0; i < n; i++)
     {
-        if(arr[i][j] != 0)
+        if (arr[i][j] != 0)
         {
             arr[i][j] = -1;
         }
@@ -43,12 +43,12 @@ void setMatrixZeroes1(vector<vector<int>> &arr)
 {
     int n = arr.size();
     int m = arr[0].size();
-    
-    for(int i=0; i<n; i++)
+
+    for (int i = 0; i < n; i++)
     {
-        for(int j=0; j<m; j++)
+        for (int j = 0; j < m; j++)
         {
-            if(arr[i][j] == 0)
+            if (arr[i][j] == 0)
             {
                 setRowZeroes(arr, i);
                 setColumnZeroes(arr, j);
@@ -56,22 +56,21 @@ void setMatrixZeroes1(vector<vector<int>> &arr)
         }
     }
 
-    for(int i=0; i<n; i++)
+    for (int i = 0; i < n; i++)
     {
-        for(int j=0; j<m; j++)
+        for (int j = 0; j < m; j++)
         {
-            if(arr[i][j] == -1)
+            if (arr[i][j] == -1)
             {
                 arr[i][j] = 0;
             }
         }
     }
-
 }
 
 void display2(vector<int> &arr)
 {
-    for(auto x : arr)
+    for (auto x : arr)
     {
         cout << x << ' ';
     }
@@ -82,17 +81,17 @@ void setMatrixZeroes2(vector<vector<int>> &arr)
 {
     int m = arr.size();
     int n = arr[0].size();
-    vector<int> row(m , 0);
+    vector<int> row(m, 0);
     vector<int> col(n, 0);
 
-    for(int i=0; i<m; i++)
+    for (int i = 0; i < m; i++)
     {
-        for(int j=0; j<n; j++)
+        for (int j = 0; j < n; j++)
         {
-            if(arr[i][j] == 0)
+            if (arr[i][j] == 0)
             {
-               row[i] = 1;
-               col[j] = 1;
+                row[i] = 1;
+                col[j] = 1;
             }
         }
     }
@@ -100,18 +99,16 @@ void setMatrixZeroes2(vector<vector<int>> &arr)
     display2(col);
     cout << endl;
 
-    for(int i=0; i<m; i++)
+    for (int i = 0; i < m; i++)
     {
-        for(int j=0; j<n; j++)
+        for (int j = 0; j < n; j++)
         {
-            if(row[i] == 1 || col[j] == 1)
+            if (row[i] == 1 || col[j] == 1)
             {
                 arr[i][j] = 0;
             }
         }
     }
-    
-
 }
 
 void setMatrixZeroes3(vector<vector<int>> &arr)
@@ -124,18 +121,18 @@ void setMatrixZeroes3(vector<vector<int>> &arr)
 
     int col0 = 1;
 
-    for(int i=0; i<m; i++)
+    for (int i = 0; i < m; i++)
     {
-        for(int j=0; j<n; j++)
+        for (int j = 0; j < n; j++)
         {
-            if(arr[i][j] == 0)
+            if (arr[i][j] == 0)
             {
                 // mark ith row
 
                 arr[i][0] = 0;
 
                 // mark jth col
-                if(j != 0)
+                if (j != 0)
                 {
                     arr[0][j] = 0;
                 }
@@ -146,29 +143,29 @@ void setMatrixZeroes3(vector<vector<int>> &arr)
             }
         }
 
-        for(int i=1; i<m; i++)
+        for (int i = 1; i < m; i++)
         {
-            for(int j=1; j<n; j++)
+            for (int j = 1; j < n; j++)
             {
-                if(arr[i][j] != 0)
+                if (arr[i][j] != 0)
                 {
-                    if(arr[i][0] == 0 || arr[0][j] == 0)
+                    if (arr[i][0] == 0 || arr[0][j] == 0)
                     {
                         arr[i][j] = 0;
                     }
                 }
             }
         }
-        if(arr[0][0] == 0)
+        if (arr[0][0] == 0)
         {
-            for(int j=0; j<n; j++)
+            for (int j = 0; j < n; j++)
             {
                 arr[0][j] = 0;
             }
         }
-        if(col0 == 0)
+        if (col0 == 0)
         {
-            for(int i=0; i<m; i++)
+            for (int i = 0; i < m; i++)
             {
                 arr[i][0] = 0;
             }
@@ -178,7 +175,7 @@ void setMatrixZeroes3(vector<vector<int>> &arr)
 
 int main()
 {
-    vector<vector<int>> arr = {{1,1,1,1},{1,0,1,1},{1,1,0,1},{0,1,1,1},{1,1,1,0}};
+    vector<vector<int>> arr = {{1, 1, 1, 1}, {1, 0, 1, 1}, {1, 1, 0, 1}, {0, 1, 1, 1}, {1, 1, 1, 0}};
     display(arr);
 
     // setMatrixZeroes1(arr);
@@ -189,5 +186,4 @@ int main()
 
     setMatrixZeroes3(arr);
     display(arr);
-
 }

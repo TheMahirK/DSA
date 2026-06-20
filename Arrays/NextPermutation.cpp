@@ -94,7 +94,7 @@ vector<int> nextPermutation1(vector<int> &arr)
 
 
 /*
-1. Algorithm Used : Optimal
+2. Algorithm Used : Optimal
    Time Complexity : O(3N)
    Auxiliary Space Requirement : O(1)
    Intuition : Find the longest prefix match, find break point , swap elements to get next permutation
@@ -140,8 +140,6 @@ int main()
     // vector<int> result = nextPermutation2(arr);
     nextPermutation2(arr);
     display(arr);
-
-
 
 
 
