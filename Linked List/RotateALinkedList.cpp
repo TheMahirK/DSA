@@ -130,7 +130,7 @@ Node *rightRotateByKNodes(Node *head, int k)
     k = len - k;
     k = k % len;
 
-    if (k == 0)        RotateALinkedList.cpp
+    if (k == 0)
         return head;
 
     Node *newTail = getNthNode(head, len - k);
