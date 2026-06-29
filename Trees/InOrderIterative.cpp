@@ -17,42 +17,40 @@ public:
 };
 
 /*
-Intuition : Push the root onto the stack.
-While the stack is not empty:
-Pop the top node.
-Visit (print) it immediately because preorder visits the root first.
-Push its right child first.
-Push its left child second.
-
-It is basically simulating recursion , using a manually created stacl
-
+Intuition : Simulate the recursive stack using manually created stack
 */
 
-void traversePreOrder(Node *root)
+void traverseInOrder(Node *root)
 {
-    // Root , left , right
+    // Left , Root, Right
     if (root == nullptr)
     {
         return;
     }
     stack<Node *> st;
-    st.push(root);
 
-    while (!st.empty())
+    Node *node = root;
+
+    while (true)
     {
-        root = st.top();
-        st.pop();
-
-        cout << root->data << ' ';
-        if (root->right)
+        if (node != nullptr)
         {
-            st.push(root->right);
+            st.push(node);
+            node = node->left;
         }
-        if (root->left)
+        else
         {
-            st.push(root->left);
+            if (st.empty())
+            {
+                break;
+            }
+            node = st.top();
+            st.pop();
+            cout << node->data << ' ';
+            node = node->right;
         }
     }
+    cout << endl;
 }
 
 int main()
@@ -65,8 +63,8 @@ int main()
     root->right->left = new Node(6);
     root->right->right = new Node(7);
 
-    cout << "Preorder  : "; // 1 2 4 5 3 6 7
-    traversePreOrder(root);
+    cout << "Inorder  : "; // 4 2 5 1 6 3 7
+    traverseInOrder(root);
     cout << endl;
 
     return 0;
