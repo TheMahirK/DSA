@@ -1,3 +1,9 @@
+/*
+Problem Name : Find path from root to given node
+Problem Description : Given the root of a tree and an int x or node x, find the path from root to
+given node x.
+It means find all the nodes that come in between when we travel from root to node x
+*/
 #include <iostream>
 using namespace std;
 
@@ -24,6 +30,16 @@ void display(vector<int> &arr)
     }
     cout << endl;
 }
+
+/*
+Intuition : Use recursive pre order traversal to go deep in paths , during traversal we keep taking nodes
+into answer path, if we reach end (left == null ptr and right == nullptr)   the node does not exist
+in that path so we remove the added nodes , and try different path. if we find the correct path
+we keep all the nodes that came during that path this way we get path to the given node
+
+Time Complexity : O(N)
+Aux. Space Req. : O(height)
+*/
 
 bool getPath(Node *root, int x, vector<int> &path)
 {
