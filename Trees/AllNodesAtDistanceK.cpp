@@ -1,3 +1,10 @@
+/*
+Problem Name : Find all the nodes at distance k from the target node
+Problem Description : Given root of a binary tree, an integer k , and a node target
+Find all the nodes which are at k distance from current node
+
+It is given that the target node always exists in the tree
+*/
 #include <iostream>
 #include <unordered_map>
 using namespace std;
