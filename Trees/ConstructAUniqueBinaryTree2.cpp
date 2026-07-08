@@ -1,6 +1,6 @@
 /*
 Problem Name : Construct a unique binary tree
-Problem Description : Given inorder traversal and pre order traversal , construct a unique binary
+Problem Description : Given inorder traversal and post order traversal , construct a unique binary
 tree which has the same in order , same pre order and same post order traversal
 
 */
@@ -98,7 +98,7 @@ vector<int> postOrder(Node *root)
 }
 
 /*
-Intuition : Use the concept that pre order always start from root for any tree/subtree
+Intuition : Use the concept that post order always end with root for any tree/subtree
 and in order always has root in middle, left sub tree elements in left , right sub tree elements in right
 with the combination of these two information, we can recursively build the tree
 
@@ -108,33 +108,40 @@ N : for map storing in order elements, N for recursively building each node
 
 */
 
-Node *buildTree(vector<int> &preOrder, int preStart, int preEnd, vector<int> &inOrder,
+Node *buildTree(vector<int> &postOrder, int postStart, int postEnd, vector<int> &inOrder,
                 int inStart, int inEnd, map<int, int> &inMap)
 {
-    if (preStart > preEnd || inStart > inEnd)
+    if (postStart > postEnd || inStart > inEnd)
     {
         return nullptr;
     }
 
-    Node *root = new Node(preOrder[preStart]);
-    int inRoot = inMap[root->data];
+    Node *root = new Node(postOrder[postEnd]);
+    int inRoot = inMap[postOrder[postEnd]];
     int numsLeft = inRoot - inStart;
 
-    root->left = buildTree(preOrder, preStart + 1, preStart + numsLeft, inOrder, inStart, inRoot - 1, inMap);
-    root->right = buildTree(preOrder, preStart + numsLeft + 1, preEnd, inOrder, inRoot + 1, inEnd, inMap);
+    root->left = buildTree(postOrder, postStart, postStart + numsLeft - 1, inOrder, inStart,
+                           inRoot - 1, inMap);
+    root->right = buildTree(postOrder, postStart + numsLeft, postEnd - 1, inOrder, inRoot + 1, inEnd, inMap);
 
     return root;
 }
 
-Node *getTree(vector<int> &preOrder, vector<int> &inOrder)
+Node *getTree(vector<int> &postOrder, vector<int> &inOrder)
 {
+
+    if (postOrder.size() != inOrder.size())
+    {
+        return nullptr;
+    }
+
     map<int, int> inMap;
 
     for (int i = 0; i < inOrder.size(); i++)
     {
         inMap[inOrder[i]] = i;
     }
-    Node *root = buildTree(preOrder, 0, preOrder.size() - 1, inOrder, 0, inOrder.size() - 1, inMap);
+    Node *root = buildTree(postOrder, 0, postOrder.size() - 1, inOrder, 0, inOrder.size() - 1, inMap);
     return root;
 }
 
@@ -160,7 +167,7 @@ int main()
     cout << "Post order : ";
     display(post);
 
-    root = getTree(pre, in);
+    root = getTree(post, in);
 
     vector<int> in2 = inOrder(root);
     cout << "New In order : ";
