@@ -68,8 +68,11 @@ Intuition : Take advantage of searching in BST like binary search by process of 
 as a valid BST has
 all left node values < root node value < all right node values
 for all sub trees
+
+Time Complexity : O(log N)
+Aux. Space Req. : O(log N)
 */
-Node *search(Node *root, int key)
+Node *search1(Node *root, int key)
 {
     if (root == nullptr || root->data == key)
     {
@@ -77,12 +80,40 @@ Node *search(Node *root, int key)
     }
     else if (key < root->data)
     {
-        return search(root->left, key);
+        return search1(root->left, key);
     }
     else
     {
-        return search(root->right, key);
+        return search1(root->right, key);
     }
+}
+
+/*
+Intuition : Take advantage of searching in BST like binary search by process of eliminations
+as a valid BST has
+all left node values < root node value < all right node values
+for all sub trees
+
+do an iterative binary search traversal to find the node
+
+Time Complexity : O(log N)
+Aux. Space Req. : O(1)
+*/
+Node *search2(Node *root, int key)
+{
+    Node *curr = root;
+    while (curr != nullptr && curr->data != key)
+    {
+        if (key < curr->data)
+        {
+            curr = curr->left;
+        }
+        else
+        {
+            curr = curr->right;
+        }
+    }
+    return curr;
 }
 
 int main()
@@ -92,9 +123,9 @@ int main()
                         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     Node *root = buildTree(tree);
 
-    int key = 13;
+    int key = 12;
 
-    Node *keyNode = search(root, key);
+    Node *keyNode = search2(root, key);
 
     if (keyNode)
     {
