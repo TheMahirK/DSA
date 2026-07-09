@@ -60,6 +60,13 @@ void preOrder(Node *root)
     cout << endl;
 }
 
+/*
+Intuition : Use reverse post order traversal that is Right, Left, Root
+Keep updating updating prev pointer and making right connection to prev pointer and left pointer to null
+
+Time Complexity : O(N)
+Aux. Space Req. : O(height)
+*/
 void flatten(Node *root, Node *&prev)
 {
     if (root == nullptr)
@@ -80,6 +87,14 @@ void flattenBinaryTree1(Node *root)
     flatten(node, prev);
 }
 
+/*
+Intuition : Use a manually created stack to simulate the above function iteratively
+Store left node on top , connect left node to right side of tree
+Repeat this for all sub trees
+
+Time Complexity : O(N)
+Aux. Space Req. : O(N)
+*/
 void flattenBinaryTree2(Node *root)
 {
     if (root == nullptr)
