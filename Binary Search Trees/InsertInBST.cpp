@@ -155,9 +155,12 @@ int main()
                         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     Node *root = buildTree(tree);
 
+    cout << "Tree before insertion : " << endl;
     levelOrderTraversal(root);
 
-    root = insertInBST(root, 8);
+    int key = 17;
+    cout << "Tree after insertion : " << endl;
+    root = insertInBST(root, key);
 
     levelOrderTraversal(root);
 
