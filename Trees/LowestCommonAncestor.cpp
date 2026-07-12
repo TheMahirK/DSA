@@ -1,3 +1,12 @@
+/*
+Problem Name : Find lowest/closest common ancestor
+Problem Description : Given the root of a binary tree and two nodes p and q, find the lowest/closest
+common ancestor in the tree
+
+A lowest/closest common ancestor is the first intersection found when we traverse from both nodes from
+bottom to top order
+Note : A node itself can be its closest common ancestor
+*/
 #include <iostream>
 using namespace std;
 
