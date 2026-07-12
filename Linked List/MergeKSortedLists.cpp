@@ -157,9 +157,8 @@ Node *mergeKSortedLists2(vector<Node *> &lists)
 
 int main()
 {
-    int k = 4;
     vector<vector<int>> arr = {{1, 2, 4, 8, 16}, {1, 3, 9, 27}, {1, 4, 16}, {1, 5, 25}};
-
+    int k = arr.size();
     vector<Node *> lists;
 
     for (int i = 0; i < k; i++)
