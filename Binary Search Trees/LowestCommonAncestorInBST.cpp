@@ -12,14 +12,14 @@ Note : A node itself can be its closest common ancestor
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -27,20 +27,20 @@ public:
     }
 };
 
-Node *buildTree(vector<int> &data)
+TreeNode *buildTree(vector<int> &data)
 {
     if (data.size() == 0)
     {
         return nullptr;
     }
     int i = 0;
-    Node *root = new Node(data[i++]);
-    queue<Node *> q;
+    TreeNode *root = new TreeNode(data[i++]);
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
     {
-        Node *currNode = q.front();
+        TreeNode *currNode = q.front();
         q.pop();
 
         if (data[i] == -1)
@@ -49,7 +49,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *leftNode = new Node(data[i]);
+            TreeNode *leftNode = new TreeNode(data[i]);
             currNode->left = leftNode;
             q.push(leftNode);
         }
@@ -60,7 +60,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *rightNode = new Node(data[i]);
+            TreeNode *rightNode = new TreeNode(data[i]);
             currNode->right = rightNode;
             q.push(rightNode);
         }
@@ -69,7 +69,7 @@ Node *buildTree(vector<int> &data)
     return root;
 }
 
-Node *findNode(Node *root, int value)
+TreeNode *findNode(TreeNode *root, int value)
 {
     if (root == nullptr || root->data == value)
     {
@@ -99,7 +99,7 @@ Repeat these steps recursively to find the closest common ancestor
 Time Complexity : O(logN)
 Aux. Space Req. : O(height)
 */
-Node *findCommonAncestor1(Node *root, Node *p, Node *q)
+TreeNode *findCommonAncestor1(TreeNode *root, TreeNode *p, TreeNode *q)
 {
     if (root == nullptr)
     {
@@ -123,10 +123,10 @@ Intuition : This is the iterative implementation of prev algorithm to save recur
 Time Complexity : O(logN)
 Aux. Space Req. : O(1)
 */
-Node *findCommonAncestor2(Node *root, Node *p, Node *q)
+TreeNode *findCommonAncestor2(TreeNode *root, TreeNode *p, TreeNode *q)
 {
-    Node *curr = root;
-    Node *ans = root;
+    TreeNode *curr = root;
+    TreeNode *ans = root;
 
     while (curr != nullptr)
     {
@@ -155,13 +155,13 @@ int main()
     vector<int> tree = {10, 5, 15, 2, 8, 12, 18, 1, 3, 6, 9, 11, 14, 16, 20,
                         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 
-    Node *root = buildTree(tree);
+    TreeNode *root = buildTree(tree);
 
-    Node *six = findNode(root, 6);
+    TreeNode *six = findNode(root, 6);
 
-    Node *three = findNode(root, 3);
+    TreeNode *three = findNode(root, 3);
 
-    Node *commonAncestor = findCommonAncestor2(root, three, six);
+    TreeNode *commonAncestor = findCommonAncestor2(root, three, six);
 
     cout << "The closest common ancestor of " << three->data << " and " << six->data << " is : "
          << commonAncestor->data;

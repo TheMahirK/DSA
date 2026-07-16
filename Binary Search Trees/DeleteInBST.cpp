@@ -6,14 +6,14 @@ with value = key such that the resultant tree is also a BST
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -22,20 +22,20 @@ public:
 };
 
 // This for building large trees automatically using vector
-Node *buildTree(vector<int> &data)
+TreeNode *buildTree(vector<int> &data)
 {
     if (data.size() == 0)
     {
         return nullptr;
     }
     int i = 0;
-    Node *root = new Node(data[i++]);
-    queue<Node *> q;
+    TreeNode *root = new TreeNode(data[i++]);
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
     {
-        Node *currNode = q.front();
+        TreeNode *currNode = q.front();
         q.pop();
 
         if (data[i] == -1)
@@ -44,7 +44,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *leftNode = new Node(data[i]);
+            TreeNode *leftNode = new TreeNode(data[i]);
             currNode->left = leftNode;
             q.push(leftNode);
         }
@@ -55,7 +55,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *rightNode = new Node(data[i]);
+            TreeNode *rightNode = new TreeNode(data[i]);
             currNode->right = rightNode;
             q.push(rightNode);
         }
@@ -64,14 +64,14 @@ Node *buildTree(vector<int> &data)
     return root;
 }
 // Just for output and debugging
-void levelOrderTraversal(Node *root)
+void levelOrderTraversal(TreeNode *root)
 {
     if (root == nullptr)
     {
         return;
     }
 
-    queue<Node *> q;
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
@@ -79,7 +79,7 @@ void levelOrderTraversal(Node *root)
         int size = q.size();
         for (int i = 0; i < size; i++)
         {
-            Node *currRoot = q.front();
+            TreeNode *currRoot = q.front();
             q.pop();
 
             if (currRoot->left)
@@ -97,7 +97,7 @@ void levelOrderTraversal(Node *root)
     cout << endl;
 }
 
-Node *findRight(Node *root)
+TreeNode *findRight(TreeNode *root)
 {
     while (root->right != nullptr)
     {
@@ -106,7 +106,7 @@ Node *findRight(Node *root)
     return root;
 }
 
-Node *helper(Node *root)
+TreeNode *helper(TreeNode *root)
 {
     if (root->left == nullptr)
     {
@@ -117,10 +117,10 @@ Node *helper(Node *root)
         return root->left;
     }
 
-    Node *rightChild = root->right;
-    Node *lastRight = findRight(root->left);
+    TreeNode *rightChild = root->right;
+    TreeNode *lastRight = findRight(root->left);
     lastRight->right = rightChild;
-    Node *temp = root->left;
+    TreeNode *temp = root->left;
     delete root;
     return temp;
 }
@@ -134,14 +134,14 @@ Time Complexity : O(logN)
 Aux. Space Req. : O(1)
 
 */
-Node *deleteNode1(Node *root, int value)
+TreeNode *deleteNode1(TreeNode *root, int value)
 {
     if (root->data == value)
     {
         return helper(root);
     }
 
-    Node *curr = root;
+    TreeNode *curr = root;
 
     while (curr != nullptr)
     {
@@ -174,7 +174,7 @@ Node *deleteNode1(Node *root, int value)
     return root;
 }
 
-Node *findLeft(Node *root)
+TreeNode *findLeft(TreeNode *root)
 {
     while (root->left != nullptr)
     {
@@ -183,25 +183,25 @@ Node *findLeft(Node *root)
     return root;
 }
 
-Node *helper2(Node *root)
+TreeNode *helper2(TreeNode *root)
 {
     if (root->left == nullptr)
     {
-        Node *temp = root->right;
+        TreeNode *temp = root->right;
         delete root;
         return temp;
     }
     if (root->right == nullptr)
     {
-        Node *temp = root->left;
+        TreeNode *temp = root->left;
         delete root;
         return temp;
     }
 
-    Node *leftChild = root->left;
-    Node *lastLeft = findLeft(root->right);
+    TreeNode *leftChild = root->left;
+    TreeNode *lastLeft = findLeft(root->right);
     lastLeft->left = leftChild;
-    Node *temp = root->right;
+    TreeNode *temp = root->right;
     delete root;
     return temp;
 }
@@ -213,14 +213,14 @@ In this we attach right side to parent node and left sub tree to left most part 
 Time Complexity : O(logN)
 Aux. Space Req. : O(1)
 */
-Node *deleteNode2(Node *root, int value)
+TreeNode *deleteNode2(TreeNode *root, int value)
 {
     if (root->data == value)
     {
         return helper2(root);
     }
 
-    Node *curr = root;
+    TreeNode *curr = root;
     while (curr != nullptr)
     {
         if (value < curr->data)
@@ -260,7 +260,7 @@ int main()
 
     // vector<int> tree = {10, 5, 12, 2, 8, 11, 14, -1, -1, -1, -1, -1, -1, -1, -1};
 
-    Node *root = buildTree(tree);
+    TreeNode *root = buildTree(tree);
 
     cout << "Tree before deletion : " << endl;
     levelOrderTraversal(root);

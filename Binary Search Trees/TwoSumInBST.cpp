@@ -8,14 +8,14 @@ other wise return false
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -23,20 +23,20 @@ public:
     }
 };
 
-Node *buildTree(vector<int> &data)
+TreeNode *buildTree(vector<int> &data)
 {
     if (data.size() == 0)
     {
         return nullptr;
     }
     int i = 0;
-    Node *root = new Node(data[i++]);
-    queue<Node *> q;
+    TreeNode *root = new TreeNode(data[i++]);
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
     {
-        Node *currNode = q.front();
+        TreeNode *currNode = q.front();
         q.pop();
 
         if (data[i] == -1)
@@ -45,7 +45,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *leftNode = new Node(data[i]);
+            TreeNode *leftNode = new TreeNode(data[i]);
             currNode->left = leftNode;
             q.push(leftNode);
         }
@@ -56,7 +56,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *rightNode = new Node(data[i]);
+            TreeNode *rightNode = new TreeNode(data[i]);
             currNode->right = rightNode;
             q.push(rightNode);
         }
@@ -69,11 +69,11 @@ Node *buildTree(vector<int> &data)
 class BSTIterator
 {
 private:
-    stack<Node *> st;
+    stack<TreeNode *> st;
     // false for ascending order , means next
     // true for descending order , means before
     bool reverse = true;
-    void pushAll(Node *node)
+    void pushAll(TreeNode *node)
     {
         while (node != nullptr)
         {
@@ -98,7 +98,7 @@ public:
 
     int next()
     {
-        Node *curr = st.top();
+        TreeNode *curr = st.top();
         st.pop();
         if (!reverse)
         {
@@ -110,7 +110,7 @@ public:
         }
         return curr->data;
     }
-    BSTIterator(Node *root, bool isReverse)
+    BSTIterator(TreeNode *root, bool isReverse)
     {
         reverse = isReverse;
         pushAll(root);
@@ -122,7 +122,7 @@ Intuition : Use BST Iterator for next()-> for pre order in ascending order, befo
 iteratively use two pointer approach , one from lowest/left most side in ascending order and one from highest/right most side
 in descending order to find the two separate values whose sum equals k
 */
-bool findTarget(Node *root, int k)
+bool findTarget(TreeNode *root, int k)
 {
     if (root == nullptr)
     {
@@ -160,7 +160,7 @@ int main()
 
     vector<int> tree = {10, 5, 15, 2, 8, 12, 18, 1, 3, 6, 9, 11, 14, 16, 20,
                         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-    Node *root = buildTree(tree);
+    TreeNode *root = buildTree(tree);
 
     int k = 38;
 

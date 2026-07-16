@@ -2,14 +2,14 @@
 #include <map>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -17,20 +17,20 @@ public:
     }
 };
 
-Node *buildTree(vector<int> &data)
+TreeNode *buildTree(vector<int> &data)
 {
     if (data.size() == 0)
     {
         return nullptr;
     }
     int i = 0;
-    Node *root = new Node(data[i++]);
-    queue<Node *> q;
+    TreeNode *root = new TreeNode(data[i++]);
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
     {
-        Node *currNode = q.front();
+        TreeNode *currNode = q.front();
         q.pop();
 
         if (data[i] == -1)
@@ -39,7 +39,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *leftNode = new Node(data[i]);
+            TreeNode *leftNode = new TreeNode(data[i]);
             currNode->left = leftNode;
             q.push(leftNode);
         }
@@ -50,7 +50,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *rightNode = new Node(data[i]);
+            TreeNode *rightNode = new TreeNode(data[i]);
             currNode->right = rightNode;
             q.push(rightNode);
         }
@@ -68,10 +68,10 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-vector<int> preOrder(Node *root)
+vector<int> preOrder(TreeNode *root)
 {
     vector<int> ans;
-    Node *curr = root;
+    TreeNode *curr = root;
     while (curr != nullptr)
     {
         if (curr->left == nullptr)
@@ -82,7 +82,7 @@ vector<int> preOrder(Node *root)
         }
         else
         {
-            Node *prev = curr->left;
+            TreeNode *prev = curr->left;
             while (prev->right && prev->right != curr)
             {
                 prev = prev->right;
@@ -111,13 +111,13 @@ Insert every node to its correct position
 Time Complexity : O(N * logN)
 Aux. Space Req. : O(1)
 */
-Node *insertInBST(Node *root, int value)
+TreeNode *insertInBST(TreeNode *root, int value)
 {
     if (root == nullptr)
     {
-        return new Node(value);
+        return new TreeNode(value);
     }
-    Node *curr = root;
+    TreeNode *curr = root;
 
     while (true)
     {
@@ -129,7 +129,7 @@ Node *insertInBST(Node *root, int value)
             }
             else
             {
-                curr->right = new Node(value);
+                curr->right = new TreeNode(value);
                 break;
             }
         }
@@ -142,7 +142,7 @@ Node *insertInBST(Node *root, int value)
             }
             else
             {
-                curr->left = new Node(value);
+                curr->left = new TreeNode(value);
                 break;
             }
         }
@@ -150,9 +150,9 @@ Node *insertInBST(Node *root, int value)
     return root;
 }
 
-Node *constructBST1(vector<int> &preOrder)
+TreeNode *constructBST1(vector<int> &preOrder)
 {
-    Node *root = new Node(preOrder[0]);
+    TreeNode *root = new TreeNode(preOrder[0]);
 
     for (int i = 1; i < preOrder.size(); i++)
     {
@@ -168,7 +168,7 @@ Construct a unique binary tree with pre order and in order traversal combined
 Time Complexity : O(N * logN)
 Aux. Space Req. : O(N)
 */
-Node *construct(vector<int> &preOrder, int preStart, int preEnd, vector<int> &inOrder,
+TreeNode *construct(vector<int> &preOrder, int preStart, int preEnd, vector<int> &inOrder,
                 int inStart, int inEnd, map<int, int> &inMap)
 {
     if (preStart > preEnd || inStart > inEnd)
@@ -176,7 +176,7 @@ Node *construct(vector<int> &preOrder, int preStart, int preEnd, vector<int> &in
         return nullptr;
     }
 
-    Node *root = new Node(preOrder[preStart]);
+    TreeNode *root = new TreeNode(preOrder[preStart]);
     int inRoot = inMap[root->data];
     int numsLeft = inRoot - inStart;
 
@@ -185,7 +185,7 @@ Node *construct(vector<int> &preOrder, int preStart, int preEnd, vector<int> &in
 
     return root;
 }
-Node *constructBST2(vector<int> &preOrder)
+TreeNode *constructBST2(vector<int> &preOrder)
 {
     vector<int> inOrder(preOrder.begin(), preOrder.end());
     sort(inOrder.begin(), inOrder.end());
@@ -196,7 +196,7 @@ Node *constructBST2(vector<int> &preOrder)
     {
         inMap[inOrder[i]] = i;
     }
-    Node *root = construct(preOrder, 0, preOrder.size() - 1, inOrder, 0, inOrder.size() - 1, inMap);
+    TreeNode *root = construct(preOrder, 0, preOrder.size() - 1, inOrder, 0, inOrder.size() - 1, inMap);
     return root;
 }
 
@@ -209,18 +209,18 @@ do this recursively on all elements , and backtrack to the root node
 Time Complexity : O(N)
 Aux. Space Req. : 
 */
-Node *build(vector<int> &preOrder, int &i, int bound)
+TreeNode *build(vector<int> &preOrder, int &i, int bound)
 {
     if (i == preOrder.size() || preOrder[i] > bound)
     {
         return nullptr;
     }
-    Node *root = new Node(preOrder[i++]);
+    TreeNode *root = new TreeNode(preOrder[i++]);
     root->left = build(preOrder, i, root->data);
     root->right = build(preOrder, i, bound);
     return root;
 }
-Node *constructBST3(vector<int> &preOrder)
+TreeNode *constructBST3(vector<int> &preOrder)
 {
     int i = 0;
     return build(preOrder, i, INT_MAX);
@@ -230,14 +230,14 @@ int main()
 
     vector<int> tree = {10, 5, 15, 2, 8, 12, 18, 1, 3, 6, 9, 11, 14, 16, 20,
                         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-    Node *root = buildTree(tree);
+    TreeNode *root = buildTree(tree);
 
     vector<int> pre = preOrder(root);
 
     cout << "Pre order traversal : ";
     display(pre);
 
-    Node *root2 = constructBST3(pre);
+    TreeNode *root2 = constructBST3(pre);
     vector<int> pre2 = preOrder(root2);
 
     cout << "New tree pre order traversal : ";

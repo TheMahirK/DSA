@@ -6,14 +6,14 @@ with value = key such that the resultant tree is also a BST
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -22,20 +22,20 @@ public:
 };
 
 // This for building large trees automatically using vector
-Node *buildTree(vector<int> &data)
+TreeNode *buildTree(vector<int> &data)
 {
     if (data.size() == 0)
     {
         return nullptr;
     }
     int i = 0;
-    Node *root = new Node(data[i++]);
-    queue<Node *> q;
+    TreeNode *root = new TreeNode(data[i++]);
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
     {
-        Node *currNode = q.front();
+        TreeNode *currNode = q.front();
         q.pop();
 
         if (data[i] == -1)
@@ -44,7 +44,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *leftNode = new Node(data[i]);
+            TreeNode *leftNode = new TreeNode(data[i]);
             currNode->left = leftNode;
             q.push(leftNode);
         }
@@ -55,7 +55,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *rightNode = new Node(data[i]);
+            TreeNode *rightNode = new TreeNode(data[i]);
             currNode->right = rightNode;
             q.push(rightNode);
         }
@@ -64,14 +64,14 @@ Node *buildTree(vector<int> &data)
     return root;
 }
 // Just for output and debugging
-void levelOrderTraversal(Node *root)
+void levelOrderTraversal(TreeNode *root)
 {
     if (root == nullptr)
     {
         return;
     }
 
-    queue<Node *> q;
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
@@ -79,7 +79,7 @@ void levelOrderTraversal(Node *root)
         int size = q.size();
         for (int i = 0; i < size; i++)
         {
-            Node *currRoot = q.front();
+            TreeNode *currRoot = q.front();
             q.pop();
 
             if (currRoot->left)
@@ -109,13 +109,13 @@ Time Complexity : O(logN)
 Aux. Space Req. : O(1)
 
 */
-Node *insertInBST(Node *root, int value)
+TreeNode *insertInBST(TreeNode *root, int value)
 {
     if (root == nullptr)
     {
-        return new Node(value);
+        return new TreeNode(value);
     }
-    Node *curr = root;
+    TreeNode *curr = root;
 
     while (true)
     {
@@ -127,7 +127,7 @@ Node *insertInBST(Node *root, int value)
             }
             else
             {
-                curr->right = new Node(value);
+                curr->right = new TreeNode(value);
                 break;
             }
         }
@@ -140,7 +140,7 @@ Node *insertInBST(Node *root, int value)
             }
             else
             {
-                curr->left = new Node(value);
+                curr->left = new TreeNode(value);
                 break;
             }
         }
@@ -153,7 +153,7 @@ int main()
 
     vector<int> tree = {10, 5, 15, 2, 8, 12, 18, 1, 3, 6, 9, 11, 14, 16, 20,
                         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-    Node *root = buildTree(tree);
+    TreeNode *root = buildTree(tree);
 
     cout << "Tree before insertion : " << endl;
     levelOrderTraversal(root);
