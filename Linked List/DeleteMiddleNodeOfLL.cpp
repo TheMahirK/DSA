@@ -7,28 +7,28 @@ Note : In case of the two middle nodes , delete the second middle node
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next)
+    ListNode(int data, ListNode *next)
     {
         this->data = data;
         this->next = next;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c != nullptr)
     {
         cout << c->data << ' ';
@@ -39,14 +39,14 @@ void display(Node *head)
 
 
 
-Node *arrayToLL(vector<int> &arr)
+ListNode *arrayToLL(vector<int> &arr)
 {
     int n = arr.size();
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
     for (int i = 1; i < n; i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         c = c->next;
     }
@@ -62,7 +62,7 @@ Time Complexity : O(N/2)
 Aux. Space Req. : O(1)
 */
 
-Node *deleteMiddleOfLL1(Node *head)
+ListNode *deleteMiddleOfLL1(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
@@ -70,9 +70,9 @@ Node *deleteMiddleOfLL1(Node *head)
         return nullptr;
     }
 
-    Node *slow = head;
-    Node *fast = head;
-    Node *prev = nullptr;
+    ListNode *slow = head;
+    ListNode *fast = head;
+    ListNode *prev = nullptr;
 
     while (fast != nullptr && fast->next != nullptr)
     {
@@ -90,7 +90,7 @@ Node *deleteMiddleOfLL1(Node *head)
 int main()
 {
     vector<int> arr = {1, 2, 3, 4, 5, 6, 7};
-    Node *head = arrayToLL(arr);
+    ListNode *head = arrayToLL(arr);
     display(head);
 
     head = deleteMiddleOfLL1(head);

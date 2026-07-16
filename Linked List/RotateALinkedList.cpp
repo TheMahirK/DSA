@@ -7,24 +7,24 @@ and return the modified LL
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next = nullptr)
+    ListNode(int data, ListNode *next = nullptr)
     {
         this->data = data;
         this->next = next;
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
     if (head == nullptr)
         return;
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -34,18 +34,18 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrayToLL(vector<int> &arr)
+ListNode *arrayToLL(vector<int> &arr)
 {
     int n = arr.size();
     if (n == 0)
         return nullptr;
 
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < n; i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         c = c->next;
     }
@@ -73,10 +73,10 @@ N for Tail node and length
 Aux. Space Req. : O(1)
 */
 
-Node *getNthNode(Node *head, int n)
+ListNode *getNthNode(ListNode *head, int n)
 {
     int count = 1;
-    Node *c = head;
+    ListNode *c = head;
 
     while (c->next != nullptr && count != n)
     {
@@ -86,12 +86,12 @@ Node *getNthNode(Node *head, int n)
     return c;
 }
 
-Node *leftRotateByKNodes(Node *head, int k)
+ListNode *leftRotateByKNodes(ListNode *head, int k)
 {
     if (head == nullptr || head->next == nullptr)
         return head;
 
-    Node *tailNode = head;
+    ListNode *tailNode = head;
     int len = 1;
 
     while (tailNode->next != nullptr)
@@ -105,19 +105,19 @@ Node *leftRotateByKNodes(Node *head, int k)
     if (k == 0)
         return head;
 
-    Node *newTail = getNthNode(head, len - k);
+    ListNode *newTail = getNthNode(head, len - k);
     tailNode->next = head;
     head = newTail->next;
     newTail->next = nullptr;
     return head;
 }
 
-Node *rightRotateByKNodes(Node *head, int k)
+ListNode *rightRotateByKNodes(ListNode *head, int k)
 {
     if (head == nullptr || head->next == nullptr)
         return head;
 
-    Node *tailNode = head;
+    ListNode *tailNode = head;
     int len = 1;
 
     while (tailNode->next != nullptr)
@@ -133,7 +133,7 @@ Node *rightRotateByKNodes(Node *head, int k)
     if (k == 0)
         return head;
 
-    Node *newTail = getNthNode(head, len - k);
+    ListNode *newTail = getNthNode(head, len - k);
     tailNode->next = head;
     head = newTail->next;
     newTail->next = nullptr;
@@ -143,7 +143,7 @@ Node *rightRotateByKNodes(Node *head, int k)
 int main()
 {
     vector<int> arr = {1, 2, 3, 4, 5, 6, 7};
-    Node *head = arrayToLL(arr);
+    ListNode *head = arrayToLL(arr);
     display(head);
 
     int k = 16;

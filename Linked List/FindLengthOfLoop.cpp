@@ -9,19 +9,19 @@ Otherwise return 0
 #include <unordered_map>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next)
+    ListNode(int data, ListNode *next)
     {
         this->data = data;
         this->next = next;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
@@ -38,16 +38,16 @@ Aux. Space Req. : O(N)
 
 */
 
-int lengthOfLoop1(Node *head)
+int lengthOfLoop1(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
         return 0;
     }
 
-    Node *c = head;
+    ListNode *c = head;
     int dist = 1;
-    unordered_map<Node *, int> mpp;
+    unordered_map<ListNode *, int> mpp;
 
     while (c != nullptr)
     {
@@ -62,7 +62,7 @@ int lengthOfLoop1(Node *head)
     return 0;
 }
 
-int getLength(Node *slow, Node *fast)
+int getLength(ListNode *slow, ListNode *fast)
 {
     int count = 1;
     fast = fast->next;
@@ -87,15 +87,15 @@ Aux. Space Req. : O(1)
 
 */
 
-int lengthOfLoop2(Node *head)
+int lengthOfLoop2(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
         return 0;
     }
 
-    Node *slow = head;
-    Node *fast = head;
+    ListNode *slow = head;
+    ListNode *fast = head;
 
     while (fast != nullptr && fast->next != nullptr)
     {
@@ -113,15 +113,15 @@ int lengthOfLoop2(Node *head)
 int main()
 {
 
-    Node *first = new Node(1);
-    Node *head = first;
+    ListNode *first = new ListNode(1);
+    ListNode *head = first;
 
-    Node *second = new Node(2);
-    Node *third = new Node(3);
-    Node *fourth = new Node(4);
-    Node *fifth = new Node(5);
-    Node *sixth = new Node(6);
-    Node *seventh = new Node(7);
+    ListNode *second = new ListNode(2);
+    ListNode *third = new ListNode(3);
+    ListNode *fourth = new ListNode(4);
+    ListNode *fifth = new ListNode(5);
+    ListNode *sixth = new ListNode(6);
+    ListNode *seventh = new ListNode(7);
 
     first->next = second;
     second->next = third;

@@ -8,14 +8,14 @@ Make a deep copy of the the original Linked list
 #include <unordered_map>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
-    Node *random;
+    ListNode *next;
+    ListNode *random;
 
-    Node(int data, Node *next = nullptr, Node *random = nullptr)
+    ListNode(int data, ListNode *next = nullptr, ListNode *random = nullptr)
     {
         this->data = data;
         this->next = next;
@@ -23,9 +23,9 @@ public:
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -56,15 +56,15 @@ Aux. Space Req. : O(2N)
 N : for storing data in map, N : for returning the answer
 */
 
-Node *makeDeepCopy1(Node *head)
+ListNode *makeDeepCopy1(ListNode *head)
 {
-    unordered_map<Node *, Node *> mpp;
+    unordered_map<ListNode *, ListNode *> mpp;
 
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
-        Node *newNode = new Node(c->data);
+        ListNode *newNode = new ListNode(c->data);
         mpp[c] = newNode;
         c = c->next;
     }
@@ -73,7 +73,7 @@ Node *makeDeepCopy1(Node *head)
 
     while (c != nullptr)
     {
-        Node *copyNode = mpp[c];
+        ListNode *copyNode = mpp[c];
         copyNode->next = mpp[c->next];
         copyNode->random = mpp[c->random];
         c = c->next;
@@ -81,14 +81,14 @@ Node *makeDeepCopy1(Node *head)
     return mpp[head];
 }
 
-Node *insertCopyInBetween(Node *head)
+ListNode *insertCopyInBetween(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
-        Node *nextNode = c->next;
-        Node *copyNode = new Node(c->data);
+        ListNode *nextNode = c->next;
+        ListNode *copyNode = new ListNode(c->data);
         copyNode->next = nextNode;
         c->next = copyNode;
         c = nextNode;
@@ -97,12 +97,12 @@ Node *insertCopyInBetween(Node *head)
     return head;
 }
 
-Node *connectRandomPointers(Node *head)
+ListNode *connectRandomPointers(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c != nullptr)
     {
-        Node *copyNode = c->next;
+        ListNode *copyNode = c->next;
 
         if (c->random)
         {
@@ -117,11 +117,11 @@ Node *connectRandomPointers(Node *head)
     return head;
 }
 
-Node *getDeepCopyList(Node *head)
+ListNode *getDeepCopyList(ListNode *head)
 {
-    Node *temp = head;
-    Node *dummy = new Node(-1);
-    Node *c = dummy;
+    ListNode *temp = head;
+    ListNode *dummy = new ListNode(-1);
+    ListNode *c = dummy;
 
     while (temp != nullptr)
     {
@@ -147,7 +147,7 @@ N : for each step
 Aux. Space Req. : O(N)
 N : for returning the answer
 */
-Node *makeDeepCopy2(Node *head)
+ListNode *makeDeepCopy2(ListNode *head)
 {
     // Insert copy in between
     head = insertCopyInBetween(head);
@@ -161,13 +161,13 @@ Node *makeDeepCopy2(Node *head)
 
 int main()
 {
-    Node *first = new Node(7);
-    Node *head = first;
+    ListNode *first = new ListNode(7);
+    ListNode *head = first;
 
-    Node *second = new Node(13);
-    Node *third = new Node(11);
-    Node *fourth = new Node(10);
-    Node *fifth = new Node(1);
+    ListNode *second = new ListNode(13);
+    ListNode *third = new ListNode(11);
+    ListNode *fourth = new ListNode(10);
+    ListNode *fifth = new ListNode(1);
 
     first->next = second;
     second->next = third;
@@ -182,7 +182,7 @@ int main()
 
     display(head);
 
-    Node *copyHead = makeDeepCopy2(head);
+    ListNode *copyHead = makeDeepCopy2(head);
     display(copyHead);
 
     return 0;

@@ -11,28 +11,28 @@ Problem Link : https://www.geeksforgeeks.org/problems/given-a-linked-list-of-0s-
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next)
+    ListNode(int data, ListNode *next)
     {
         this->data = data;
         this->next = next;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c)
     {
         cout << c->data << ' ';
@@ -41,17 +41,17 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrToLinkedList(vector<int> &arr)
+ListNode *arrToLinkedList(vector<int> &arr)
 {
     if (arr.empty())
         return nullptr;
 
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < arr.size(); i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         c = c->next;
     }
@@ -67,7 +67,7 @@ Node *arrToLinkedList(vector<int> &arr)
    In second iteration assign the values to nodes in respective order for respective count times
 */
 
-Node *segregate1(Node *head)
+ListNode *segregate1(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
@@ -76,7 +76,7 @@ Node *segregate1(Node *head)
 
     int count0 = 0, count1 = 0, count2 = 0;
 
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -130,21 +130,21 @@ Node *segregate1(Node *head)
    Make last node of 2s nullptr
 */
 
-Node *segregate2(Node *head)
+ListNode *segregate2(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
         return head;
     }
 
-    Node *zeroHead = new Node(-1);
-    Node *zero = zeroHead;
-    Node *oneHead = new Node(-1);
-    Node *one = oneHead;
-    Node *twoHead = new Node(-1);
-    Node *two = twoHead;
+    ListNode *zeroHead = new ListNode(-1);
+    ListNode *zero = zeroHead;
+    ListNode *oneHead = new ListNode(-1);
+    ListNode *one = oneHead;
+    ListNode *twoHead = new ListNode(-1);
+    ListNode *two = twoHead;
 
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -183,7 +183,7 @@ Node *segregate2(Node *head)
 int main()
 {
     vector<int> arr = {1, 2, 0, 0, 0, 1, 2, 0, 1, 1, 0, 2};
-    Node *head = arrToLinkedList(arr);
+    ListNode *head = arrToLinkedList(arr);
 
     display(head);
 

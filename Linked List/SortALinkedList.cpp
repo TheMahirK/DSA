@@ -6,24 +6,24 @@ Problem Description : Given a singly LL , sort the LL and return the head of the
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next = nullptr)
+    ListNode(int data, ListNode *next = nullptr)
     {
         this->data = data;
         this->next = next;
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
     if (head == nullptr)
         return;
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -33,18 +33,18 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrayToLL(vector<int> &arr)
+ListNode *arrayToLL(vector<int> &arr)
 {
     int n = arr.size();
     if (n == 0)
         return nullptr;
 
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < n; i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         c = c->next;
     }
@@ -60,14 +60,14 @@ Note : this will sort the elements of a List , not the list itself
 Meaning it will change the data values of lists , the linked list connections remain same
 This will cause that the element previously stored at a memory location will be stored at different memory location
 */
-Node *sortList1(Node *head)
+ListNode *sortList1(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
         return head;
     }
     vector<int> arr;
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -88,10 +88,10 @@ Node *sortList1(Node *head)
     return head;
 }
 
-Node *findMiddle(Node *head)
+ListNode *findMiddle(ListNode *head)
 {
-    Node *slow = head;
-    Node *fast = head->next;
+    ListNode *slow = head;
+    ListNode *fast = head->next;
 
     while (fast != nullptr && fast->next != nullptr)
     {
@@ -101,7 +101,7 @@ Node *findMiddle(Node *head)
     return slow;
 }
 
-Node *mergeTwoSortedLists(Node *head1, Node *head2)
+ListNode *mergeTwoSortedLists(ListNode *head1, ListNode *head2)
 {
     if (head1 == nullptr)
     {
@@ -112,8 +112,8 @@ Node *mergeTwoSortedLists(Node *head1, Node *head2)
         return head1;
     }
 
-    Node *dummy = new Node(-1);
-    Node *c1 = head1, *c2 = head2, *c = dummy;
+    ListNode *dummy = new ListNode(-1);
+    ListNode *c1 = head1, *c2 = head2, *c = dummy;
 
     while (c1 != nullptr && c2 != nullptr)
     {
@@ -141,15 +141,15 @@ Node *mergeTwoSortedLists(Node *head1, Node *head2)
     return dummy->next;
 }
 
-Node *mergeSort(Node *head)
+ListNode *mergeSort(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
         return head;
     }
 
-    Node *middleNode = findMiddle(head);
-    Node *leftHead = head, *rightHead = middleNode->next;
+    ListNode *middleNode = findMiddle(head);
+    ListNode *leftHead = head, *rightHead = middleNode->next;
     middleNode->next = nullptr;
 
     leftHead = mergeSort(leftHead);
@@ -171,7 +171,7 @@ Aux. Space Req. : O(log N)
 For stack because of recursion
 */
 
-Node *sortList2(Node *head)
+ListNode *sortList2(ListNode *head)
 {
     return mergeSort(head);
 }
@@ -180,7 +180,7 @@ int main()
 {
     vector<int> arr = {9, 8, 7, 6, 5, 4, 3, 2, 1};
 
-    Node *head = arrayToLL(arr);
+    ListNode *head = arrayToLL(arr);
     display(head);
 
     head = sortList2(head);

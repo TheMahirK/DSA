@@ -9,14 +9,14 @@ Link : https://www.geeksforgeeks.org/problems/flattening-a-linked-list/1
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
-    Node *child;
+    ListNode *next;
+    ListNode *child;
 
-    Node(int data, Node *next = nullptr, Node *child = nullptr)
+    ListNode(int data, ListNode *next = nullptr, ListNode *child = nullptr)
     {
         this->data = data;
         this->next = next;
@@ -24,9 +24,9 @@ public:
     }
 };
 
-void displayChild(Node *head)
+void displayChild(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -36,9 +36,9 @@ void displayChild(Node *head)
     cout << endl;
 }
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -48,12 +48,12 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *merge(Node *head1, Node *head2)
+ListNode *merge(ListNode *head1, ListNode *head2)
 {
-    Node *dummy = new Node(-1);
-    Node *c = dummy;
+    ListNode *dummy = new ListNode(-1);
+    ListNode *c = dummy;
 
-    Node *c1 = head1, *c2 = head2;
+    ListNode *c1 = head1, *c2 = head2;
 
     while (c1 != nullptr && c2 != nullptr)
     {
@@ -99,14 +99,14 @@ Aux. Space Req/ : O(N)
 Used by stack because of recursion
 
 */
-Node *flattenLL(Node *head)
+ListNode *flattenLL(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
         return head;
     }
 
-    Node *mergedHead = flattenLL(head->next);
+    ListNode *mergedHead = flattenLL(head->next);
     head = merge(head, mergedHead);
     return head;
 }
@@ -114,18 +114,18 @@ Node *flattenLL(Node *head)
 int main()
 {
 
-    Node *Node1 = new Node(3);
-    Node *head = Node1;
-    Node *Node2 = new Node(2);
-    Node *Child2_1 = new Node(10);
+    ListNode *Node1 = new ListNode(3);
+    ListNode *head = Node1;
+    ListNode *Node2 = new ListNode(2);
+    ListNode *Child2_1 = new ListNode(10);
     Node2->child = Child2_1;
 
     Node1->next = Node2;
 
-    Node *Node3 = new Node(1);
-    Node *Child3_1 = new Node(7);
-    Node *Child3_2 = new Node(11);
-    Node *Child3_3 = new Node(12);
+    ListNode *Node3 = new ListNode(1);
+    ListNode *Child3_1 = new ListNode(7);
+    ListNode *Child3_2 = new ListNode(11);
+    ListNode *Child3_3 = new ListNode(12);
 
     Node2->next = Node3;
     Node3->child = Child3_1;

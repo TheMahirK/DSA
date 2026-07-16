@@ -6,14 +6,14 @@ Problem Description : Given a sorted DLL , find all the pairs with given sum in 
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
-    Node *prev;
+    ListNode *next;
+    ListNode *prev;
 
-    Node(int data, Node *next = nullptr, Node *prev = nullptr)
+    ListNode(int data, ListNode *next = nullptr, ListNode *prev = nullptr)
     {
         this->data = data;
         this->next = next;
@@ -21,9 +21,9 @@ public:
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c)
     {
         cout << c->data << ' ';
@@ -32,17 +32,17 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrayToDLL(vector<int> &arr)
+ListNode *arrayToDLL(vector<int> &arr)
 {
     if (arr.empty())
         return nullptr;
 
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < arr.size(); i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         temp->prev = c;
         c = c->next;
@@ -50,7 +50,7 @@ Node *arrayToDLL(vector<int> &arr)
     return head;
 }
 
-vector<pair<int, int>> findPairs1(Node *head, int sum)
+vector<pair<int, int>> findPairs1(ListNode *head, int sum)
 {
     vector<pair<int, int>> ans;
 
@@ -59,7 +59,7 @@ vector<pair<int, int>> findPairs1(Node *head, int sum)
         return ans;
     }
 
-    Node *c1 = head;
+    ListNode *c1 = head;
 
     while (c1 != nullptr)
     {
@@ -68,7 +68,7 @@ vector<pair<int, int>> findPairs1(Node *head, int sum)
         if (val1 > sum)
             break;
 
-        Node *c2 = c1->next;
+        ListNode *c2 = c1->next;
 
         while (c2 != nullptr)
         {
@@ -88,11 +88,11 @@ vector<pair<int, int>> findPairs1(Node *head, int sum)
     return ans;
 }
 
-Node *findTail(Node *head)
+ListNode *findTail(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
         return head;
-    Node *c = head;
+    ListNode *c = head;
     while (c->next != nullptr)
     {
         c = c->next;
@@ -100,11 +100,11 @@ Node *findTail(Node *head)
     return c;
 }
 
-vector<pair<int, int>> findPairs2(Node *head, int sum)
+vector<pair<int, int>> findPairs2(ListNode *head, int sum)
 {
     vector<pair<int, int>> ans;
-    Node *left = head;
-    Node *right = findTail(head);
+    ListNode *left = head;
+    ListNode *right = findTail(head);
 
     while (left->data < right->data)
     {
@@ -131,7 +131,7 @@ vector<pair<int, int>> findPairs2(Node *head, int sum)
 int main()
 {
     vector<int> arr = {0, 1, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    Node *head = arrayToDLL(arr);
+    ListNode *head = arrayToDLL(arr);
     display(head);
 
     vector<pair<int, int>> pairs = findPairs2(head, 8);

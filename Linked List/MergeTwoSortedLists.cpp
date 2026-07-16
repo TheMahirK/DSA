@@ -13,28 +13,28 @@ Follow up : Try to do in O(1) space
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next)
+    ListNode(int data, ListNode *next)
     {
         this->data = data;
         this->next = next;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c != nullptr)
     {
 
@@ -44,16 +44,16 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrayToLL(vector<int> &arr)
+ListNode *arrayToLL(vector<int> &arr)
 {
     int n = arr.size();
     if (n == 0)
         return nullptr;
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
     for (int i = 1; i < n; i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         c = c->next;
     }
@@ -72,18 +72,18 @@ N1 = No. of nodes in List1 , N2 = No. of nodes in List2
 Aux. Space Req. : O(1)
 */
 
-Node *mergeTwoSortedLL(Node *head1, Node *head2)
+ListNode *mergeTwoSortedLL(ListNode *head1, ListNode *head2)
 {
     if (head1 == nullptr)
         return head2;
     if (head2 == nullptr)
         return head1;
 
-    Node *dummy = new Node(-1);
-    Node *currNode = dummy;
+    ListNode *dummy = new ListNode(-1);
+    ListNode *currNode = dummy;
 
-    Node *c1 = head1;
-    Node *c2 = head2;
+    ListNode *c1 = head1;
+    ListNode *c2 = head2;
 
     while (c1 != nullptr && c2 != nullptr)
     {
@@ -118,13 +118,13 @@ int main()
     vector<int> arr1 = {0, 2, 4, 5, 6, 7, 9};
     vector<int> arr2 = {1, 3, 5, 8};
 
-    Node *head1 = arrayToLL(arr1);
-    Node *head2 = arrayToLL(arr2);
+    ListNode *head1 = arrayToLL(arr1);
+    ListNode *head2 = arrayToLL(arr2);
 
     display(head1);
     display(head2);
 
-    Node *head = mergeTwoSortedLL(head1, head2);
+    ListNode *head = mergeTwoSortedLL(head1, head2);
 
     display(head);
 

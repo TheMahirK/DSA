@@ -10,28 +10,28 @@ elements without changing the order of all odd position elements and even positi
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next)
+    ListNode(int data, ListNode *next)
     {
         this->data = data;
         this->next = next;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c)
     {
         cout << c->data << ' ';
@@ -40,17 +40,17 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrToLinkedList(vector<int> &arr)
+ListNode *arrToLinkedList(vector<int> &arr)
 {
     if (arr.empty())
         return nullptr;
 
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < arr.size(); i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         c = c->next;
     }
@@ -66,7 +66,7 @@ Node *arrToLinkedList(vector<int> &arr)
    Assign the values to all nodes from the array
 */
 
-Node *oddEvenList1(Node *head)
+ListNode *oddEvenList1(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
@@ -75,7 +75,7 @@ Node *oddEvenList1(Node *head)
 
     vector<int> ans;
 
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr && c->next != nullptr)
     {
@@ -121,15 +121,15 @@ Node *oddEvenList1(Node *head)
    pointer, after this link last element of odd to first element of even
 */
 
-Node *oddEvenList2(Node *head)
+ListNode *oddEvenList2(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
         return head;
     }
-    Node *odd = head;
-    Node *even = head->next;
-    Node *evenHead = head->next;
+    ListNode *odd = head;
+    ListNode *even = head->next;
+    ListNode *evenHead = head->next;
 
     while (even != nullptr && even->next != nullptr)
     {
@@ -147,7 +147,7 @@ Node *oddEvenList2(Node *head)
 int main()
 {
     vector<int> arr = {12, 5, 7, 3, 2, 11, 16};
-    Node *head = arrToLinkedList(arr);
+    ListNode *head = arrToLinkedList(arr);
 
     display(head);
 

@@ -8,38 +8,38 @@ Return the linked list containing number N+1 in right order
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next)
+    ListNode(int data, ListNode *next)
     {
         this->data = data;
         this->next = next;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
     }
 };
 
-Node *reverseSinglyLL(Node *head)
+ListNode *reverseSinglyLL(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
         return head;
     }
 
-    Node *last = nullptr;
-    Node *c = head;
+    ListNode *last = nullptr;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
-        Node *nextNode = c->next;
+        ListNode *nextNode = c->next;
         c->next = last;
         last = c;
         c = nextNode;
@@ -47,25 +47,25 @@ Node *reverseSinglyLL(Node *head)
     return last;
 }
 
-Node *arrayToLinkedList(vector<int> &arr)
+ListNode *arrayToLinkedList(vector<int> &arr)
 {
     int n = arr.size();
-    Node *head = new Node(arr[0]);
+    ListNode *head = new ListNode(arr[0]);
 
-    Node *c = head;
+    ListNode *c = head;
 
     for (int i = 1; i < n; i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         c = c->next;
     }
     return head;
 }
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -81,13 +81,13 @@ Algorithm Used :
 
 */
 
-Node *addOne1(Node *head)
+ListNode *addOne1(ListNode *head)
 {
     head = reverseSinglyLL(head);
 
     int carry = 1;
 
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr && carry != 0)
     {
@@ -101,7 +101,7 @@ Node *addOne1(Node *head)
 
     if (carry)
     {
-        Node *temp = new Node(carry);
+        ListNode *temp = new ListNode(carry);
         temp->next = head;
         head = temp;
     }
@@ -113,7 +113,7 @@ int main()
 
     vector<int> num = {9, 9, 9};
 
-    Node *head = arrayToLinkedList(num);
+    ListNode *head = arrayToLinkedList(num);
     display(head);
 
     head = addOne1(head);

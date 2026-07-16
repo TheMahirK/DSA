@@ -5,18 +5,18 @@ template <typename T>
 class LinkedList
 {
 private:
-    struct Node
+    struct ListNode
     {
         T data;
-        Node *next;
+        ListNode *next;
     };
 
-    Node *head;
+    ListNode *head;
 
 public:
     void display()
     {
-        Node *c = head;
+        ListNode *c = head;
 
         while (c)
         {
@@ -43,7 +43,7 @@ public:
 template <typename T>
 void LinkedList<T>::insertAtHead(T value)
 {
-    Node *newNode = new Node;
+    ListNode *newNode = new ListNode;
     newNode->data = value;
     newNode->next = head;
     head = newNode;
@@ -54,17 +54,17 @@ void LinkedList<T>::insertAtEnd(T value)
 {
     if (head == NULL)
     {
-        head = new Node;
+        head = new ListNode;
         head->data = value;
         head->next = NULL;
         return;
     }
-    Node *c = head;
+    ListNode *c = head;
     while (c->next)
     {
         c = c->next;
     }
-    Node *temp = new Node;
+    ListNode *temp = new ListNode;
     temp->data = value;
     c->next = temp;
 }
@@ -72,7 +72,7 @@ void LinkedList<T>::insertAtEnd(T value)
 template <typename T>
 void LinkedList<T>::deleteAtEnd()
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c->next->next)
     {
         c = c->next;
@@ -85,7 +85,7 @@ void LinkedList<T>::deleteAtEnd()
 template <typename T>
 void LinkedList<T>::deleteBegin()
 {
-    Node *temp = head;
+    ListNode *temp = head;
     head = head->next;
     delete temp;
 }
@@ -96,8 +96,8 @@ void LinkedList<T>::deleteKthNodeFromEnd(int k)
     if (head == NULL)
         return;
 
-    Node *c1 = head;
-    Node *c2 = head;
+    ListNode *c1 = head;
+    ListNode *c2 = head;
 
     // Move c2 k steps ahead
     for (int i = 0; i < k; i++)
@@ -110,7 +110,7 @@ void LinkedList<T>::deleteKthNodeFromEnd(int k)
     // If c2 becomes NULL → delete head
     if (c2 == NULL)
     {
-        Node *temp = head;
+        ListNode *temp = head;
         head = head->next;
         delete temp;
         return;
@@ -124,7 +124,7 @@ void LinkedList<T>::deleteKthNodeFromEnd(int k)
     }
 
     // Delete node
-    Node *temp = c1->next;
+    ListNode *temp = c1->next;
     c1->next = temp->next;
     delete temp;
 }

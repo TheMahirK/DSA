@@ -1,6 +1,6 @@
 /*
 
-Problem Name : Remove Nth Node from End of the Linked List
+Problem Name : Remove Nth ListNode from End of the Linked List
 Problem Description : Given a Linked List head and an integer N, remove the Nth node from
 end of the Linked List and return head
 
@@ -20,28 +20,28 @@ Problem Link : https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next)
+    ListNode(int data, ListNode *next)
     {
         this->data = data;
         this->next = next;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c)
     {
         cout << c->data << ' ';
@@ -50,17 +50,17 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrToLinkedList(vector<int> &arr)
+ListNode *arrToLinkedList(vector<int> &arr)
 {
     if (arr.empty())
         return nullptr;
 
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < arr.size(); i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         c = c->next;
     }
@@ -76,7 +76,7 @@ Node *arrToLinkedList(vector<int> &arr)
    when reached at N , delete the next node
 */
 
-Node *removeNthFromEnd1(Node *head, int n)
+ListNode *removeNthFromEnd1(ListNode *head, int n)
 {
     if (head == nullptr)
     {
@@ -84,7 +84,7 @@ Node *removeNthFromEnd1(Node *head, int n)
     }
 
     int count = 0;
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -94,7 +94,7 @@ Node *removeNthFromEnd1(Node *head, int n)
 
     if (n == count)
     {
-        Node *temp = head;
+        ListNode *temp = head;
         head = head->next;
         delete temp;
         return head;
@@ -114,7 +114,7 @@ Node *removeNthFromEnd1(Node *head, int n)
         if (count == n)
         {
 
-            Node *temp = c->next;
+            ListNode *temp = c->next;
             c->next = c->next->next;
             delete temp;
             break;
@@ -135,15 +135,15 @@ Node *removeNthFromEnd1(Node *head, int n)
 
 */
 
-Node *removeNthFromEnd2(Node *head, int n)
+ListNode *removeNthFromEnd2(ListNode *head, int n)
 {
     if (head == nullptr || n <= 0)
     {
         return head;
     }
 
-    Node *fast = head;
-    Node *slow = head;
+    ListNode *fast = head;
+    ListNode *slow = head;
 
     int steps = 0;
 
@@ -160,7 +160,7 @@ Node *removeNthFromEnd2(Node *head, int n)
     if (fast == nullptr)
     {
 
-        Node *temp = head;
+        ListNode *temp = head;
         head = head->next;
         delete temp;
         return head;
@@ -172,7 +172,7 @@ Node *removeNthFromEnd2(Node *head, int n)
         slow = slow->next;
     }
 
-    Node *temp = slow->next;
+    ListNode *temp = slow->next;
     slow->next = slow->next->next;
     delete temp;
 
@@ -182,7 +182,7 @@ Node *removeNthFromEnd2(Node *head, int n)
 int main()
 {
     vector<int> arr = {9, 8, 7, 6, 5, 4, 3, 2, 1};
-    Node *head = arrToLinkedList(arr);
+    ListNode *head = arrToLinkedList(arr);
     display(head);
 
     int n = 10;

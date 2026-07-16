@@ -9,21 +9,21 @@ and return new head
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
-    Node *prev;
+    ListNode *next;
+    ListNode *prev;
 
-    Node(int data, Node *next, Node *prev)
+    ListNode(int data, ListNode *next, ListNode *prev)
     {
         this->data = data;
         this->next = next;
         this->prev = prev;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
@@ -31,9 +31,9 @@ public:
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c)
     {
         cout << c->data << ' ';
@@ -42,17 +42,17 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrToDoublyLinkedList(vector<int> &arr)
+ListNode *arrToDoublyLinkedList(vector<int> &arr)
 {
     if (arr.empty())
         return nullptr;
 
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < arr.size(); i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         temp->prev = c;
         c = c->next;
@@ -69,11 +69,11 @@ Node *arrToDoublyLinkedList(vector<int> &arr)
    In second traversal , assign elements from stack top to bottom
 
 */
-Node *reverseDoublyLinkedList1(Node *head)
+ListNode *reverseDoublyLinkedList1(ListNode *head)
 {
     stack<int> st;
 
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -103,15 +103,15 @@ Node *reverseDoublyLinkedList1(Node *head)
    just like we swap two variables using a third variable
 */
 
-Node *reverseDoublyLinkedList2(Node *head)
+ListNode *reverseDoublyLinkedList2(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
         return head;
     }
 
-    Node *last = nullptr;
-    Node *c = head;
+    ListNode *last = nullptr;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -128,7 +128,7 @@ int main()
 
     vector<int> arr = {6, 11, 5, 7, 3, 2, 11};
 
-    Node *head = arrToDoublyLinkedList(arr);
+    ListNode *head = arrToDoublyLinkedList(arr);
 
     display(head);
 

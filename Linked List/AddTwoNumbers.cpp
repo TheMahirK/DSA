@@ -16,28 +16,28 @@ that is
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next)
+    ListNode(int data, ListNode *next)
     {
         this->data = data;
         this->next = next;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -47,15 +47,15 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrayToLL(vector<int> &arr)
+ListNode *arrayToLL(vector<int> &arr)
 {
     int n = arr.size();
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < n; i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         c = c->next;
     }
@@ -71,7 +71,7 @@ Time Complexity : O(max(N1,N2)), N1 = no. of digits in first number , N2 = no. o
 Auxiliary Space Requirement : O(max(N1, N2)) for storing and returing the answer;
 */
 
-Node *addTwoNumbers(Node *head1, Node *head2)
+ListNode *addTwoNumbers(ListNode *head1, ListNode *head2)
 {
     if (head1 == nullptr)
     {
@@ -82,11 +82,11 @@ Node *addTwoNumbers(Node *head1, Node *head2)
         return head1;
     }
 
-    Node *dummy = new Node(-1);
-    Node *c = dummy;
+    ListNode *dummy = new ListNode(-1);
+    ListNode *c = dummy;
 
-    Node *c1 = head1;
-    Node *c2 = head2;
+    ListNode *c1 = head1;
+    ListNode *c2 = head2;
 
     int carry = 0;
 
@@ -103,7 +103,7 @@ Node *addTwoNumbers(Node *head1, Node *head2)
             c2 = c2->next;
         }
 
-        Node *temp = new Node(carry % 10);
+        ListNode *temp = new ListNode(carry % 10);
         c->next = temp;
         c = c->next;
         carry = carry / 10;
@@ -111,7 +111,7 @@ Node *addTwoNumbers(Node *head1, Node *head2)
 
     if (carry)
     {
-        c->next = new Node(carry);
+        c->next = new ListNode(carry);
     }
     return dummy->next;
 }
@@ -122,13 +122,13 @@ int main()
     vector<int> arr1 = {5, 7, 4};
     vector<int> arr2 = {6, 9, 8};
 
-    Node *head1 = arrayToLL(arr1);
+    ListNode *head1 = arrayToLL(arr1);
     display(head1);
 
-    Node *head2 = arrayToLL(arr2);
+    ListNode *head2 = arrayToLL(arr2);
     display(head2);
 
-    Node *head = addTwoNumbers(head1, head2);
+    ListNode *head = addTwoNumbers(head1, head2);
     display(head);
 
     return 0;

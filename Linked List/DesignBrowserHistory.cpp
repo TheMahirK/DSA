@@ -5,14 +5,14 @@ using namespace std;
 
 
 // Implementation of a DLL
-class Node
+class ListNode
 {
 public:
     string data;
-    Node *next;
-    Node *back;
+    ListNode *next;
+    ListNode *back;
 
-    Node(string x, Node *next = nullptr, Node *back = nullptr)
+    ListNode(string x, ListNode *next = nullptr, ListNode *back = nullptr)
     {
         data = x;
         this->next = next;
@@ -25,12 +25,12 @@ public:
 class BrowserHistory
 {
 private:
-    Node *currentPage;
+    ListNode *currentPage;
 
 public:
     BrowserHistory(string homepage)
     {
-        currentPage = new Node(homepage);
+        currentPage = new ListNode(homepage);
     }
 
     // Destructor
@@ -43,7 +43,7 @@ public:
         // Delete entire list
         while (currentPage)
         {
-            Node *temp = currentPage;
+            ListNode *temp = currentPage;
             currentPage = currentPage->next;
             delete temp;
         }
@@ -52,18 +52,18 @@ public:
     void visit(string url)
     {
         // Delete forward history
-        Node *temp = currentPage->next;
+        ListNode *temp = currentPage->next;
 
         while (temp)
         {
-            Node *nextNode = temp->next;
+            ListNode *nextNode = temp->next;
             delete temp;
             temp = nextNode;
         }
 
         currentPage->next = nullptr;
 
-        Node *newNode = new Node(url);
+        ListNode *newNode = new ListNode(url);
         newNode->back = currentPage;
         currentPage->next = newNode;
         currentPage = newNode;

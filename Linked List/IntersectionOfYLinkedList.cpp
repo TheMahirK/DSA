@@ -10,28 +10,28 @@ Note : If there is no intersection , return nullptr
 #include <unordered_map>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next)
+    ListNode(int data, ListNode *next)
     {
         this->data = data;
         this->next = next;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c != nullptr)
     {
         cout << c->data << ' ';
@@ -51,11 +51,11 @@ Aux. Space Req. : O(N1) or O(N2)
 
 */
 
-Node *findIntersectionNode1(Node *head1, Node *head2)
+ListNode *findIntersectionNode1(ListNode *head1, ListNode *head2)
 {
-    unordered_map<Node *, int> mpp;
+    unordered_map<ListNode *, int> mpp;
 
-    Node *c1 = head1;
+    ListNode *c1 = head1;
 
     while (c1 != nullptr)
     {
@@ -63,7 +63,7 @@ Node *findIntersectionNode1(Node *head1, Node *head2)
         c1 = c1->next;
     }
 
-    Node *c2 = head2;
+    ListNode *c2 = head2;
 
     while (c2 != nullptr)
     {
@@ -87,12 +87,12 @@ Aux. Space Req. : O(1)
 
 */
 
-Node *findIntersectionNode2(Node *head1, Node *head2)
+ListNode *findIntersectionNode2(ListNode *head1, ListNode *head2)
 {
     int n1 = 0, n2 = 0, d = 0;
 
-    Node *c1 = head1;
-    Node *c2 = head2;
+    ListNode *c1 = head1;
+    ListNode *c2 = head2;
 
     while (c1 != nullptr || c2 != nullptr)
     {
@@ -155,7 +155,7 @@ Time Complexity : O(N1 + N2)
 Aux. Space Req. : O(1)
 */
 
-Node *findIntersectionNode3(Node *head1, Node *head2)
+ListNode *findIntersectionNode3(ListNode *head1, ListNode *head2)
 {
 
     if (head1 == nullptr || head2 == nullptr)
@@ -163,8 +163,8 @@ Node *findIntersectionNode3(Node *head1, Node *head2)
         return nullptr;
     }
 
-    Node *c1 = head1;
-    Node *c2 = head2;
+    ListNode *c1 = head1;
+    ListNode *c2 = head2;
 
     while (c1 != c2)
     {
@@ -191,15 +191,15 @@ Node *findIntersectionNode3(Node *head1, Node *head2)
 int main()
 {
 
-    Node *first = new Node(1);
-    Node *head1 = first;
+    ListNode *first = new ListNode(1);
+    ListNode *head1 = first;
 
-    Node *second = new Node(2);
-    Node *third = new Node(3);
-    Node *fourth = new Node(4);
-    Node *fifth = new Node(5);
-    Node *sixth = new Node(6);
-    Node *seventh = new Node(7);
+    ListNode *second = new ListNode(2);
+    ListNode *third = new ListNode(3);
+    ListNode *fourth = new ListNode(4);
+    ListNode *fifth = new ListNode(5);
+    ListNode *sixth = new ListNode(6);
+    ListNode *seventh = new ListNode(7);
 
     first->next = second;
     second->next = third;
@@ -210,18 +210,18 @@ int main()
 
     display(head1);
 
-    Node *First = new Node(10);
-    Node *Second = new Node(20);
-    Node *Third = new Node(30);
+    ListNode *First = new ListNode(10);
+    ListNode *Second = new ListNode(20);
+    ListNode *Third = new ListNode(30);
 
-    Node *head2 = First;
+    ListNode *head2 = First;
     First->next = Second;
     Second->next = Third;
     Third->next = fifth;
 
     display(head2);
 
-    Node *intersectionNode = findIntersectionNode3(head1, head2);
+    ListNode *intersectionNode = findIntersectionNode3(head1, head2);
 
     display(intersectionNode);
 

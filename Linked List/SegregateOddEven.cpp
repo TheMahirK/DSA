@@ -12,28 +12,28 @@ Problem Link : https://www.geeksforgeeks.org/problems/segregate-even-and-odd-nod
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next)
+    ListNode(int data, ListNode *next)
     {
         this->data = data;
         this->next = next;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c)
     {
         cout << c->data << ' ';
@@ -42,17 +42,17 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrToLinkedList(vector<int> &arr)
+ListNode *arrToLinkedList(vector<int> &arr)
 {
     if (arr.empty())
         return nullptr;
 
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < arr.size(); i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         c = c->next;
     }
@@ -68,7 +68,7 @@ Node *arrToLinkedList(vector<int> &arr)
    In second iteration assign each node elements from the respective arrays
 */
 
-Node *segregateEvenOdd1(Node *head)
+ListNode *segregateEvenOdd1(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
@@ -77,7 +77,7 @@ Node *segregateEvenOdd1(Node *head)
 
     vector<int> odd;
     vector<int> even;
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -118,20 +118,20 @@ Node *segregateEvenOdd1(Node *head)
    pointer, after this link last element of even to first element of odd
 */
 
-Node *segregateEvenOdd2(Node *head)
+ListNode *segregateEvenOdd2(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
         return head;
     }
 
-    Node *even = new Node(-1);
-    Node *evenHead = even;
+    ListNode *even = new ListNode(-1);
+    ListNode *evenHead = even;
 
-    Node *odd = new Node(-1);
-    Node *oddHead = odd;
+    ListNode *odd = new ListNode(-1);
+    ListNode *oddHead = odd;
 
-    Node *curr = head;
+    ListNode *curr = head;
 
     while (curr != nullptr)
     {
@@ -158,7 +158,7 @@ Node *segregateEvenOdd2(Node *head)
 int main()
 {
     vector<int> arr = {12, 5, 7, 3, 2, 11, 16};
-    Node *head = arrToLinkedList(arr);
+    ListNode *head = arrToLinkedList(arr);
 
     display(head);
 

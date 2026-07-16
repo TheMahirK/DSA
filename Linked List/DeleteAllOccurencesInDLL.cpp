@@ -7,14 +7,14 @@ and return the updated LL
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
-    Node *prev;
+    ListNode *next;
+    ListNode *prev;
 
-    Node(int data, Node *next = nullptr, Node *prev = nullptr)
+    ListNode(int data, ListNode *next = nullptr, ListNode *prev = nullptr)
     {
         this->data = data;
         this->next = next;
@@ -22,9 +22,9 @@ public:
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c != nullptr)
     {
         cout << c->data << ' ';
@@ -33,15 +33,15 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrayToLL(vector<int> &arr)
+ListNode *arrayToLL(vector<int> &arr)
 {
     int n = arr.size();
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < n; i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         temp->prev = c;
         c = temp;
@@ -56,9 +56,9 @@ Time Complexity : O(N)
 Aux. Space Req. : O(N)
 */
 
-Node *deleteAllOccurences(Node *head, int key)
+ListNode *deleteAllOccurences(ListNode *head, int key)
 {
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -68,8 +68,8 @@ Node *deleteAllOccurences(Node *head, int key)
             {
                 head = c->next;
             }
-            Node *nextNode = c->next;
-            Node *prevNode = c->prev;
+            ListNode *nextNode = c->next;
+            ListNode *prevNode = c->prev;
 
             if (nextNode != nullptr)
                 nextNode->prev = prevNode;
@@ -90,7 +90,7 @@ int main()
 {
     vector<int> arr = {0, 0, 1, 0, 0, 2, 3, 0, 4, 5, 0, 6, 0, 0, 7, 0, 0};
 
-    Node *head = arrayToLL(arr);
+    ListNode *head = arrayToLL(arr);
     display(head);
 
     head = deleteAllOccurences(head, 0);

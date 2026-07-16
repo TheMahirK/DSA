@@ -1,21 +1,21 @@
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
-    Node *prev;
+    ListNode *next;
+    ListNode *prev;
 
-    Node(int data, Node *next, Node *prev)
+    ListNode(int data, ListNode *next, ListNode *prev)
     {
         this->data = data;
         this->next = next;
         this->prev = prev;
     }
 
-    Node(int data)
+    ListNode(int data)
     {
         this->data = data;
         this->next = nullptr;
@@ -23,9 +23,9 @@ public:
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c)
     {
         cout << c->data << ' ';
@@ -34,17 +34,17 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrToDoublyLinkedList(vector<int> &arr)
+ListNode *arrToDoublyLinkedList(vector<int> &arr)
 {
     if (arr.empty())
         return nullptr;
 
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < arr.size(); i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         temp->prev = c;
         c = c->next;
@@ -52,39 +52,39 @@ Node *arrToDoublyLinkedList(vector<int> &arr)
     return head;
 }
 
-Node *insertAtBegin(Node *head, int x)
+ListNode *insertAtBegin(ListNode *head, int x)
 {
     if (head == nullptr)
     {
-        return new Node(x);
+        return new ListNode(x);
     }
-    Node *temp = new Node(x);
+    ListNode *temp = new ListNode(x);
     head->prev = temp;
     temp->next = head;
     return temp;
 }
 
-Node *insertAtEnd(Node *head, int x)
+ListNode *insertAtEnd(ListNode *head, int x)
 {
     if (head == nullptr)
     {
-        return new Node(x);
+        return new ListNode(x);
     }
 
-    Node *c = head;
+    ListNode *c = head;
 
     while (c->next != nullptr)
     {
         c = c->next;
     }
 
-    Node *temp = new Node(x);
+    ListNode *temp = new ListNode(x);
     c->next = temp;
     temp->prev = c;
     return head;
 }
 
-Node *insertAtPos(Node *head, int pos, int x)
+ListNode *insertAtPos(ListNode *head, int pos, int x)
 {
     if (head == nullptr)
     {
@@ -100,7 +100,7 @@ Node *insertAtPos(Node *head, int pos, int x)
         return insertAtBegin(head, x);
     }
 
-    Node *c = head;
+    ListNode *c = head;
 
     for (int i = 1; i <= pos - 2; i++)
     {
@@ -116,7 +116,7 @@ Node *insertAtPos(Node *head, int pos, int x)
         return head;
     }
 
-    Node *temp = new Node(x);
+    ListNode *temp = new ListNode(x);
     temp->next = c->next;
     if (c->next != nullptr)
     {
@@ -127,7 +127,7 @@ Node *insertAtPos(Node *head, int pos, int x)
     return head;
 }
 
-Node *insertBeforeVal(Node *head, int val, int x)
+ListNode *insertBeforeVal(ListNode *head, int val, int x)
 {
     if (head == nullptr)
     {
@@ -136,19 +136,19 @@ Node *insertBeforeVal(Node *head, int val, int x)
 
     if (head->data == val)
     {
-        Node *temp = new Node(x);
+        ListNode *temp = new ListNode(x);
         temp->next = head;
         head->prev = temp;
         return temp;
     }
 
-    Node *c = head;
+    ListNode *c = head;
 
     while (c->next != nullptr)
     {
         if (c->next->data == val)
         {
-            Node *temp = new Node(x);
+            ListNode *temp = new ListNode(x);
             temp->next = c->next;
             c->next->prev = temp;
             temp->prev = c;
@@ -160,7 +160,7 @@ Node *insertBeforeVal(Node *head, int val, int x)
     return head;
 }
 
-Node *deleteAtBegin(Node *head)
+ListNode *deleteAtBegin(ListNode *head)
 {
     if (head == nullptr)
     {
@@ -172,14 +172,14 @@ Node *deleteAtBegin(Node *head)
         delete head;
         return nullptr;
     }
-    Node *temp = head;
+    ListNode *temp = head;
     head = head->next;
     head->prev = nullptr;
     delete temp;
     return head;
 }
 
-Node *deleteAtEnd(Node *head)
+ListNode *deleteAtEnd(ListNode *head)
 {
     if (head == nullptr)
     {
@@ -191,20 +191,20 @@ Node *deleteAtEnd(Node *head)
         return nullptr;
     }
 
-    Node *c = head;
+    ListNode *c = head;
 
     while (c->next && c->next->next)
     {
         c = c->next;
     }
 
-    Node *temp = c->next;
+    ListNode *temp = c->next;
     c->next = nullptr;
     delete temp;
     return head;
 }
 
-Node *deleteAtPos(Node *head, int pos)
+ListNode *deleteAtPos(ListNode *head, int pos)
 {
     if (head == nullptr)
     {
@@ -215,7 +215,7 @@ Node *deleteAtPos(Node *head, int pos)
         return deleteAtBegin(head);
     }
 
-    Node *c = head;
+    ListNode *c = head;
 
     for (int i = 1; i <= pos - 2; i++)
     {
@@ -230,7 +230,7 @@ Node *deleteAtPos(Node *head, int pos)
     {
         return head;
     }
-    Node *temp = c->next;
+    ListNode *temp = c->next;
     c->next = c->next->next;
 
     if (c->next)
@@ -241,11 +241,11 @@ Node *deleteAtPos(Node *head, int pos)
     return head;
 }
 
-Node *deleteValue(Node *head, int val)
+ListNode *deleteValue(ListNode *head, int val)
 {
     while (head != nullptr && head->data == val)
     {
-        Node *temp = head;
+        ListNode *temp = head;
         head = head->next;
         if (head != nullptr)
         {
@@ -258,12 +258,12 @@ Node *deleteValue(Node *head, int val)
         return head;
     }
 
-    Node *c = head;
+    ListNode *c = head;
     while (c->next != nullptr)
     {
         if (c->next->data == val)
         {
-            Node *temp = c->next;
+            ListNode *temp = c->next;
             c->next = c->next->next;
             if (c->next != nullptr)
             {
@@ -285,9 +285,9 @@ int main()
     vector<int> arr = {11, 12, 5, 7, 3, 2, 11};
     // vector<int> arr = {1,11,11,11};
 
-    Node *head = arrToDoublyLinkedList(arr);
+    ListNode *head = arrToDoublyLinkedList(arr);
 
-    // Node *head = new Node(12);
+    // ListNode *head = new ListNode(12);
 
     display(head);
 

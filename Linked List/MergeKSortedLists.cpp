@@ -7,24 +7,24 @@ into a single sorted list and return the merged list
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
+    ListNode *next;
 
-    Node(int data, Node *next = nullptr)
+    ListNode(int data, ListNode *next = nullptr)
     {
         this->data = data;
         this->next = next;
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
     if (head == nullptr)
         return;
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr)
     {
@@ -34,25 +34,25 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrayToLL(vector<int> &arr)
+ListNode *arrayToLL(vector<int> &arr)
 {
     int n = arr.size();
     if (n == 0)
         return nullptr;
 
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < n; i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         c = c->next;
     }
     return head;
 }
 
-Node *merge(Node *head1, Node *head2)
+ListNode *merge(ListNode *head1, ListNode *head2)
 {
     if (head1 == nullptr)
     {
@@ -63,8 +63,8 @@ Node *merge(Node *head1, Node *head2)
         return head1;
     }
 
-    Node *dummy = new Node(-1);
-    Node *c = dummy, *c1 = head1, *c2 = head2;
+    ListNode *dummy = new ListNode(-1);
+    ListNode *c = dummy, *c1 = head1, *c2 = head2;
 
     while (c1 != nullptr && c2 != nullptr)
     {
@@ -99,9 +99,9 @@ Time Complexity : O(k * N^2)
 Aux. Space Req. : O(1)
 */
 
-Node *mergeKSortedLists1(vector<Node *> &lists)
+ListNode *mergeKSortedLists1(vector<ListNode *> &lists)
 {
-    Node *head = lists[0];
+    ListNode *head = lists[0];
     int k = lists.size();
 
     for (int i = 1; i < k; i++)
@@ -125,10 +125,10 @@ N = Avg. number of nodes in all lists
 Aux. Space Req. : O(k)
 for storing k nodes at a time in priority queue
 */
-Node *mergeKSortedLists2(vector<Node *> &lists)
+ListNode *mergeKSortedLists2(vector<ListNode *> &lists)
 {
     int n = lists.size();
-    priority_queue<pair<int, Node *>, vector<pair<int, Node *>>, greater<pair<int, Node *>>> pq;
+    priority_queue<pair<int, ListNode *>, vector<pair<int, ListNode *>>, greater<pair<int, ListNode *>>> pq;
 
     for (int i = 0; i < n; i++)
     {
@@ -138,8 +138,8 @@ Node *mergeKSortedLists2(vector<Node *> &lists)
         }
     }
 
-    Node *dummy = new Node(-1);
-    Node *currNode = dummy;
+    ListNode *dummy = new ListNode(-1);
+    ListNode *currNode = dummy;
 
     while (!pq.empty())
     {
@@ -159,16 +159,16 @@ int main()
 {
     vector<vector<int>> arr = {{1, 2, 4, 8, 16}, {1, 3, 9, 27}, {1, 4, 16}, {1, 5, 25}};
     int k = arr.size();
-    vector<Node *> lists;
+    vector<ListNode *> lists;
 
     for (int i = 0; i < k; i++)
     {
-        Node *temp = arrayToLL(arr[i]);
+        ListNode *temp = arrayToLL(arr[i]);
         display(temp);
         lists.push_back(temp);
     }
 
-    Node *head = mergeKSortedLists2(lists);
+    ListNode *head = mergeKSortedLists2(lists);
     display(head);
 
     return 0;

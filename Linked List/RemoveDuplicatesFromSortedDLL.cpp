@@ -6,14 +6,14 @@ Problem Description : Given a sorted DLL , remove all the duplicates from the DL
 #include <iostream>
 using namespace std;
 
-class Node
+class ListNode
 {
 public:
     int data;
-    Node *next;
-    Node *prev;
+    ListNode *next;
+    ListNode *prev;
 
-    Node(int data, Node *next = nullptr, Node *prev = nullptr)
+    ListNode(int data, ListNode *next = nullptr, ListNode *prev = nullptr)
     {
         this->data = data;
         this->next = next;
@@ -21,9 +21,9 @@ public:
     }
 };
 
-void display(Node *head)
+void display(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
     while (c != nullptr)
     {
         cout << c->data << ' ';
@@ -32,15 +32,15 @@ void display(Node *head)
     cout << endl;
 }
 
-Node *arrayToDLL(vector<int> &arr)
+ListNode *arrayToDLL(vector<int> &arr)
 {
     int n = arr.size();
-    Node *head = new Node(arr[0]);
-    Node *c = head;
+    ListNode *head = new ListNode(arr[0]);
+    ListNode *c = head;
 
     for (int i = 1; i < n; i++)
     {
-        Node *temp = new Node(arr[i]);
+        ListNode *temp = new ListNode(arr[i]);
         c->next = temp;
         temp->prev = c;
         c = temp;
@@ -58,17 +58,17 @@ Time Complexity : O(N)
 Aux. Space Req. : O(1)
 */
 
-Node *removeDuplicates(Node *head)
+ListNode *removeDuplicates(ListNode *head)
 {
-    Node *c = head;
+    ListNode *c = head;
 
     while (c != nullptr && c->next != nullptr)
     {
-        Node *nextNode = c->next;
+        ListNode *nextNode = c->next;
 
         while (nextNode != nullptr && nextNode->data == c->data)
         {
-            Node *duplicate = nextNode;
+            ListNode *duplicate = nextNode;
             nextNode = nextNode->next;
             delete duplicate;
         }
@@ -86,7 +86,7 @@ int main()
 {
     vector<int> arr = {1, 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7};
 
-    Node *head = arrayToDLL(arr);
+    ListNode *head = arrayToDLL(arr);
     display(head);
 
     head = removeDuplicates(head);
