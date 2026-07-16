@@ -135,29 +135,39 @@ void recoverBST1(TreeNode *root)
     recover(root, ind, inord);
 }
 
+/*
+Intuition : Use in order traversal (morris traversal or recursive traversal), keeping track of current node (Node *node in this case)
+Whenever first violation of increasing order happens , we store the violating node in a variable (Node *first in this case)
+and the last violation is stored in (Node *second in this case), after full traversal we swap the values of the both nodes
+to recover the BST in valid form
+
+Time Complexity : O(N)
+Aux. Space Req. : O(1)
+*/
+
 void recoverBST2(TreeNode *root)
 {
     TreeNode *curr = root;
-    TreeNode *first, *second, *last;
-    first = new TreeNode(INT_MIN);
+    TreeNode *node, *first, *second;
+    node = new TreeNode(INT_MIN);
+    first = nullptr;
     second = nullptr;
-    last = nullptr;
 
     while (curr != nullptr)
     {
         if (curr->left == nullptr)
         {
             // Visit current node
-            if (curr->data < first->data)
+            if (curr->data < node->data)
             {
-                if (second == nullptr)
+                if (first == nullptr)
                 {
-                    second = first;
+                    first = node;
                 }
-                last = curr;
+                second = curr;
             }
 
-            first = curr;
+            node = curr;
             curr = curr->right;
         }
         else
@@ -179,31 +189,31 @@ void recoverBST2(TreeNode *root)
                 prev->right = nullptr;
 
                 // Visit current node
-                if (curr->data < first->data)
+                if (curr->data < node->data)
                 {
-                    if (second == nullptr)
+                    if (first == nullptr)
                     {
-                        second = first;
+                        first = node;
                     }
-                    last = curr;
+                    second = curr;
                 }
 
-                first = curr;
+                node = curr;
                 curr = curr->right;
             }
         }
     }
 
-    if (second != nullptr && last != nullptr)
+    if (first != nullptr && second != nullptr)
     {
-        swap(second->data, last->data);
+        swap(first->data, second->data);
     }
 }
 
 int main()
 {
 
-    vector<int> tree = {20, 5, 15, 2, 8, 12, 18, 1, 3, 6, 9, 11, 14, 16, 10,
+    vector<int> tree = {10, 5, 15, 2, 9, 12, 18, 1, 3, 6, 8, 11, 14, 16, 20,
                         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
     TreeNode *root = buildTree(tree);
 
