@@ -2,14 +2,14 @@
 #include <map>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -26,7 +26,7 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-void rightView(Node *root, int level, vector<int> &ans)
+void rightView(TreeNode *root, int level, vector<int> &ans)
 {
     if (root == nullptr)
     {
@@ -50,7 +50,7 @@ Time Complexity : O(N)
 Aux. Space Req. : O(height)
 */
 
-vector<int> getRightSideView1(Node *root)
+vector<int> getRightSideView1(TreeNode *root)
 {
     vector<int> ans;
     int level = 0;
@@ -69,22 +69,22 @@ Time Complexity : O(N)
 Aux. Space Req. : O(N)
 */
 
-vector<int> getRightSideView2(Node *root)
+vector<int> getRightSideView2(TreeNode *root)
 {
     vector<int> ans;
     if (root == nullptr)
     {
         return ans;
     }
-    // Node , level
-    queue<pair<Node *, int>> q;
+    // TreeNode , level
+    queue<pair<TreeNode *, int>> q;
     q.push({root, 0});
 
     while (!q.empty())
     {
         auto it = q.front();
         q.pop();
-        Node *node = it.first;
+        TreeNode *node = it.first;
         int level = it.second;
         if (level == ans.size())
         {
@@ -104,15 +104,15 @@ vector<int> getRightSideView2(Node *root)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    Node *five = root->left->right;
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
-    five->right = new Node(8);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    TreeNode *five = root->left->right;
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
+    five->right = new TreeNode(8);
 
     vector<int> rightSideView = getRightSideView1(root);
     display(rightSideView);

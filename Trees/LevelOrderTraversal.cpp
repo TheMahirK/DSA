@@ -6,14 +6,14 @@ Print elements level wise, from topmost level to the bottom most level
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -42,7 +42,7 @@ level order
 Time Complexity : O(N)
 Aux. Space Req : O(no. of leaf nodes)
 */
-vector<vector<int>> levelOrderTraversal(Node *root)
+vector<vector<int>> levelOrderTraversal(TreeNode *root)
 {
     vector<vector<int>> ans;
     if (root == nullptr)
@@ -50,7 +50,7 @@ vector<vector<int>> levelOrderTraversal(Node *root)
         return ans;
     }
 
-    queue<Node *> q;
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
@@ -60,7 +60,7 @@ vector<vector<int>> levelOrderTraversal(Node *root)
 
         for (int i = 0; i < size; i++)
         {
-            Node *currRoot = q.front();
+            TreeNode *currRoot = q.front();
             q.pop();
 
             if (currRoot->left)
@@ -80,13 +80,13 @@ vector<vector<int>> levelOrderTraversal(Node *root)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
 
     vector<vector<int>> levelOrder = levelOrderTraversal(root);
     display(levelOrder);

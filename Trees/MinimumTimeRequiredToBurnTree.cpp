@@ -1,14 +1,14 @@
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -25,14 +25,14 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-void markParents(Node *root, unordered_map<Node *, Node *> &parentTracker,
-                 Node *&target, int targetValue)
+void markParents(TreeNode *root, unordered_map<TreeNode *, TreeNode *> &parentTracker,
+                 TreeNode *&target, int targetValue)
 {
-    queue<Node *> q;
+    queue<TreeNode *> q;
     q.push(root);
     while (!q.empty())
     {
-        Node *currNode = q.front();
+        TreeNode *currNode = q.front();
         q.pop();
 
         if (currNode->data == targetValue)
@@ -65,16 +65,16 @@ Aux. Space Req. : O(3N)
 N : for parent tracker, N : for visited tracker , N : for queue
 */
 
-int minAmountOfTime(Node *root, int start)
+int minAmountOfTime(TreeNode *root, int start)
 {
     int ans = 0;
-    Node *target = nullptr;
-    unordered_map<Node *, Node *> parentTracker;
+    TreeNode *target = nullptr;
+    unordered_map<TreeNode *, TreeNode *> parentTracker;
     markParents(root, parentTracker, target, start);
 
     // Bonus point if target node is root node , ans = max Height of the tree
-    unordered_map<Node *, bool> visited;
-    queue<Node *> q;
+    unordered_map<TreeNode *, bool> visited;
+    queue<TreeNode *> q;
     q.push(target);
     visited[target] = true;
 
@@ -84,7 +84,7 @@ int minAmountOfTime(Node *root, int start)
         int flag = 0;
         for (int i = 0; i < size; i++)
         {
-            Node *currNode = q.front();
+            TreeNode *currNode = q.front();
             q.pop();
 
             if (currNode->left != nullptr && !visited[currNode->left])
@@ -116,14 +116,14 @@ int minAmountOfTime(Node *root, int start)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->right->left = new Node(5);
-    root->right->right = new Node(6);
-    root->right->right->right = new Node(8);
-    root->left->left->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->right->left = new TreeNode(5);
+    root->right->right = new TreeNode(6);
+    root->right->right->right = new TreeNode(8);
+    root->left->left->right = new TreeNode(7);
 
     int target = 1;
     int minTime = minAmountOfTime(root, target);

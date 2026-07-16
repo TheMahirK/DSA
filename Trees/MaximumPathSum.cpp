@@ -7,14 +7,14 @@ path of the tree
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -32,7 +32,7 @@ currNode
 Time Complexity : O(N)
 Aux. Space Req. : O(height)
 */
-int findMaxPathSum(Node *root, int &maxSum)
+int findMaxPathSum(TreeNode *root, int &maxSum)
 {
     if (root == nullptr)
     {
@@ -44,7 +44,7 @@ int findMaxPathSum(Node *root, int &maxSum)
     return root->data + max(leftSum, rightSum);
 }
 
-int maxPathSum(Node *root)
+int maxPathSum(TreeNode *root)
 {
     int maxSum = INT_MIN;
     findMaxPathSum(root, maxSum);
@@ -53,13 +53,13 @@ int maxPathSum(Node *root)
 
 int main()
 {
-    Node *root = new Node(-10);
-    root->left = new Node(-2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(-7);
+    TreeNode *root = new TreeNode(-10);
+    root->left = new TreeNode(-2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(-7);
 
     int maxSum = maxPathSum(root);
     cout << "Max Path Sum : " << maxSum;

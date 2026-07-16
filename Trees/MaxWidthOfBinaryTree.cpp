@@ -10,14 +10,14 @@ extending down to that level are also counted into the length calculation.
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -44,14 +44,14 @@ Aux. Space Req. : O(N)
 
 */
 
-int getWidth(Node *root)
+int getWidth(TreeNode *root)
 {
     if (root == nullptr)
     {
         return 0;
     }
     int ans = 0;
-    queue<pair<Node *, int>> q;
+    queue<pair<TreeNode *, int>> q;
     q.push({root, 0});
 
     while (!q.empty())
@@ -66,7 +66,7 @@ int getWidth(Node *root)
             auto it = q.front();
             q.pop();
             int currId = it.second - mini;
-            Node *node = it.first;
+            TreeNode *node = it.first;
             if (i == 0)
             {
                 first = currId;
@@ -91,13 +91,13 @@ int getWidth(Node *root)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    // root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    // root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
 
     int width = getWidth(root);
 

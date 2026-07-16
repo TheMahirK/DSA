@@ -7,14 +7,14 @@ that means Aux. Space Req. should be O(1)
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -24,20 +24,20 @@ public:
 
 
 
-Node *buildTree(vector<int> &data)
+TreeNode *buildTree(vector<int> &data)
 {
     if (data.size() == 0)
     {
         return nullptr;
     }
     int i = 0;
-    Node *root = new Node(data[i++]);
-    queue<Node *> q;
+    TreeNode *root = new TreeNode(data[i++]);
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
     {
-        Node *currNode = q.front();
+        TreeNode *currNode = q.front();
         q.pop();
 
         if (data[i] == -1)
@@ -46,7 +46,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *leftNode = new Node(data[i]);
+            TreeNode *leftNode = new TreeNode(data[i]);
             currNode->left = leftNode;
             q.push(leftNode);
         }
@@ -57,7 +57,7 @@ Node *buildTree(vector<int> &data)
         }
         else
         {
-            Node *rightNode = new Node(data[i]);
+            TreeNode *rightNode = new TreeNode(data[i]);
             currNode->right = rightNode;
             q.push(rightNode);
         }
@@ -82,9 +82,9 @@ Time Complexity : ~ O(2N)
 Aux. Space Req. : O(1)
 */
 
-void inOrder(Node *root)
+void inOrder(TreeNode *root)
 {
-    Node *curr = root;
+    TreeNode *curr = root;
     while (curr != nullptr)
     {
         if (curr->left == nullptr)
@@ -94,7 +94,7 @@ void inOrder(Node *root)
         }
         else
         {
-            Node *prev = curr->left;
+            TreeNode *prev = curr->left;
 
             while (prev->right && prev->right != curr)
             {
@@ -119,10 +119,10 @@ void inOrder(Node *root)
 }
 
 // Do the same as in order traversal above but change the print condition to print as Root, Left, Right
-void preOrder(Node *root)
+void preOrder(TreeNode *root)
 {
 
-    Node *curr = root;
+    TreeNode *curr = root;
     while (curr != nullptr)
     {
         if (curr->left == nullptr)
@@ -132,7 +132,7 @@ void preOrder(Node *root)
         }
         else
         {
-            Node *prev = curr->left;
+            TreeNode *prev = curr->left;
 
             while (prev->right && prev->right != curr)
             {
@@ -159,7 +159,7 @@ void preOrder(Node *root)
 int main()
 {
     vector<int> tree = {1, 2, 3, 4, 5, 6, 7};
-    Node *root = buildTree(tree);
+    TreeNode *root = buildTree(tree);
 
     cout << "Preorder traversal : ";
     preOrder(root);

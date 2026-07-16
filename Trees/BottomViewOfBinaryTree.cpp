@@ -6,14 +6,14 @@ Problem Description : Given the root of a binary tree, find the Bottom view node
 #include <map>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -38,7 +38,7 @@ Map will store nodes from left most line number (lowest) to right most line numb
 Time Complexity : O(N)
 Aux. Space Req. : O(2N)
 */
-vector<int> getBottomView(Node *root)
+vector<int> getBottomView(TreeNode *root)
 {
     vector<int> ans;
     if (root == nullptr)
@@ -48,8 +48,8 @@ vector<int> getBottomView(Node *root)
     // Line no. , node value
     map<int, int> mpp;
 
-    // Node , line number
-    queue<pair<Node *, int>> q;
+    // TreeNode , line number
+    queue<pair<TreeNode *, int>> q;
 
     q.push({root, 0});
 
@@ -57,7 +57,7 @@ vector<int> getBottomView(Node *root)
     {
         auto it = q.front();
         q.pop();
-        Node *node = it.first;
+        TreeNode *node = it.first;
         int line = it.second;
         mpp[line] = node->data;
 
@@ -80,13 +80,13 @@ vector<int> getBottomView(Node *root)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
 
     vector<int> bottomView = getBottomView(root);
     display(bottomView);

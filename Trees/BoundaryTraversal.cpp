@@ -6,14 +6,14 @@ A boundary traversal traverses all boundary nodes from left to right
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -30,14 +30,14 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-bool isLeaf(Node *root)
+bool isLeaf(TreeNode *root)
 {
     return (root->left == nullptr && root->right == nullptr);
 }
 
-void addLeftBoundary(Node *root, vector<int> &ans)
+void addLeftBoundary(TreeNode *root, vector<int> &ans)
 {
-    Node *currNode = root->left;
+    TreeNode *currNode = root->left;
     while (currNode != nullptr)
     {
         if (!isLeaf(currNode))
@@ -57,9 +57,9 @@ void addLeftBoundary(Node *root, vector<int> &ans)
     }
 }
 
-void addRightBoundary(Node *root, vector<int> &ans)
+void addRightBoundary(TreeNode *root, vector<int> &ans)
 {
-    Node *currNode = root->right;
+    TreeNode *currNode = root->right;
     vector<int> temp;
     while (currNode != nullptr)
     {
@@ -86,7 +86,7 @@ void addRightBoundary(Node *root, vector<int> &ans)
     }
 }
 
-void addLeafNodes(Node *root, vector<int> &ans)
+void addLeafNodes(TreeNode *root, vector<int> &ans)
 {
     // Add leaf nodes from left to right
     if (isLeaf(root))
@@ -112,7 +112,7 @@ Intuition : Follow these steps
 4. Add all right boundary nodes from bottom to top (or reverse of top to bottom)
 */
 
-vector<int> boundaryTraversal(Node *root)
+vector<int> boundaryTraversal(TreeNode *root)
 {
     vector<int> ans;
     if (!isLeaf(root))
@@ -126,19 +126,19 @@ vector<int> boundaryTraversal(Node *root)
 }
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    Node *five = root->left->right;
-    five->left = new Node(15);
-    five->right = new Node(30);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
-    Node *seven = root->right->right;
-    seven->right = new Node(9);
-    seven->left = new Node(8);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    TreeNode *five = root->left->right;
+    five->left = new TreeNode(15);
+    five->right = new TreeNode(30);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
+    TreeNode *seven = root->right->right;
+    seven->right = new TreeNode(9);
+    seven->left = new TreeNode(8);
 
     vector<int> boundary = boundaryTraversal(root);
     display(boundary);

@@ -9,14 +9,14 @@ tree which has the same in order , same pre order and same post order traversal
 #include <map>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -36,7 +36,7 @@ void display(vector<int> &traversal)
 // 1. Left subtree
 // 2. Root node
 // 3. Right subtree
-void traverseInorder(Node *root, vector<int> &traversal)
+void traverseInorder(TreeNode *root, vector<int> &traversal)
 {
     if (root != nullptr)
     {
@@ -47,7 +47,7 @@ void traverseInorder(Node *root, vector<int> &traversal)
     }
 }
 
-vector<int> inOrder(Node *root)
+vector<int> inOrder(TreeNode *root)
 {
     vector<int> traversal;
     traverseInorder(root, traversal);
@@ -58,7 +58,7 @@ vector<int> inOrder(Node *root)
 // 2. Left subtree
 // 3. Right subtree
 
-void traversePreorder(Node *root, vector<int> &traversal)
+void traversePreorder(TreeNode *root, vector<int> &traversal)
 {
     if (root != nullptr)
     {
@@ -69,7 +69,7 @@ void traversePreorder(Node *root, vector<int> &traversal)
     }
 }
 
-vector<int> preOrder(Node *root)
+vector<int> preOrder(TreeNode *root)
 {
     vector<int> traversal;
     traversePreorder(root, traversal);
@@ -79,7 +79,7 @@ vector<int> preOrder(Node *root)
 // 2. Right subtree
 // 3. Root node
 
-void traversePostorder(Node *root, vector<int> &traversal)
+void traversePostorder(TreeNode *root, vector<int> &traversal)
 {
     if (root != nullptr)
     {
@@ -90,7 +90,7 @@ void traversePostorder(Node *root, vector<int> &traversal)
     }
 }
 
-vector<int> postOrder(Node *root)
+vector<int> postOrder(TreeNode *root)
 {
     vector<int> traversal;
     traversePostorder(root, traversal);
@@ -108,7 +108,7 @@ N : for map storing in order elements, N for recursively building each node
 
 */
 
-Node *buildTree(vector<int> &postOrder, int postStart, int postEnd, vector<int> &inOrder,
+TreeNode *buildTree(vector<int> &postOrder, int postStart, int postEnd, vector<int> &inOrder,
                 int inStart, int inEnd, map<int, int> &inMap)
 {
     if (postStart > postEnd || inStart > inEnd)
@@ -116,7 +116,7 @@ Node *buildTree(vector<int> &postOrder, int postStart, int postEnd, vector<int> 
         return nullptr;
     }
 
-    Node *root = new Node(postOrder[postEnd]);
+    TreeNode *root = new TreeNode(postOrder[postEnd]);
     int inRoot = inMap[postOrder[postEnd]];
     int numsLeft = inRoot - inStart;
 
@@ -127,7 +127,7 @@ Node *buildTree(vector<int> &postOrder, int postStart, int postEnd, vector<int> 
     return root;
 }
 
-Node *getTree(vector<int> &postOrder, vector<int> &inOrder)
+TreeNode *getTree(vector<int> &postOrder, vector<int> &inOrder)
 {
 
     if (postOrder.size() != inOrder.size())
@@ -141,19 +141,19 @@ Node *getTree(vector<int> &postOrder, vector<int> &inOrder)
     {
         inMap[inOrder[i]] = i;
     }
-    Node *root = buildTree(postOrder, 0, postOrder.size() - 1, inOrder, 0, inOrder.size() - 1, inMap);
+    TreeNode *root = buildTree(postOrder, 0, postOrder.size() - 1, inOrder, 0, inOrder.size() - 1, inMap);
     return root;
 }
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
 
     vector<int> in = inOrder(root);
     cout << "In order : ";

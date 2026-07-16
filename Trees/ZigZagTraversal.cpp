@@ -6,14 +6,14 @@ start from left to right
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -43,7 +43,7 @@ reverse current level for every even levels
 Time Complexity : O(N)
 Aux. Space Req : O(no. of leaf nodes)
 */
-vector<vector<int>> zigZagTraversal1(Node *root)
+vector<vector<int>> zigZagTraversal1(TreeNode *root)
 {
     vector<vector<int>> ans;
     if (root == nullptr)
@@ -52,7 +52,7 @@ vector<vector<int>> zigZagTraversal1(Node *root)
     }
 
     bool flag = true;
-    queue<Node *> q;
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
@@ -62,7 +62,7 @@ vector<vector<int>> zigZagTraversal1(Node *root)
 
         for (int i = 0; i < size; i++)
         {
-            Node *currRoot = q.front();
+            TreeNode *currRoot = q.front();
             q.pop();
 
             if (currRoot->left)
@@ -95,7 +95,7 @@ Time Complexity : O(N)
 Aux. Space Req : O(no. of leaf nodes)
 */
 
-vector<vector<int>> zigZagTraversal2(Node *root)
+vector<vector<int>> zigZagTraversal2(TreeNode *root)
 {
     vector<vector<int>> ans;
     if (root == nullptr)
@@ -104,7 +104,7 @@ vector<vector<int>> zigZagTraversal2(Node *root)
     }
 
     bool flag = true;
-    queue<Node *> q;
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
@@ -114,7 +114,7 @@ vector<vector<int>> zigZagTraversal2(Node *root)
 
         for (int i = 0; i < size; i++)
         {
-            Node *currRoot = q.front();
+            TreeNode *currRoot = q.front();
             q.pop();
 
             if (currRoot->left)
@@ -136,13 +136,13 @@ vector<vector<int>> zigZagTraversal2(Node *root)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
 
     vector<vector<int>> zigZagOrder = zigZagTraversal2(root);
     display(zigZagOrder);

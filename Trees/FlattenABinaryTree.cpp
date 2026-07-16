@@ -1,14 +1,14 @@
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -16,9 +16,9 @@ public:
     }
 };
 
-void display(Node *root)
+void display(TreeNode *root)
 {
-    Node *c = root;
+    TreeNode *c = root;
     while (c != nullptr)
     {
         cout << c->data << ' ';
@@ -27,9 +27,9 @@ void display(Node *root)
     cout << endl;
 }
 
-void preOrder(Node *root)
+void preOrder(TreeNode *root)
 {
-    Node *curr = root;
+    TreeNode *curr = root;
     while (curr != nullptr)
     {
         if (curr->left == nullptr)
@@ -39,7 +39,7 @@ void preOrder(Node *root)
         }
         else
         {
-            Node *prev = curr->left;
+            TreeNode *prev = curr->left;
             while (prev->right && prev->right != curr)
             {
                 prev = prev->right;
@@ -67,7 +67,7 @@ Keep updating updating prev pointer and making right connection to prev pointer 
 Time Complexity : O(N)
 Aux. Space Req. : O(height)
 */
-void flatten(Node *root, Node *&prev)
+void flatten(TreeNode *root, TreeNode *&prev)
 {
     if (root == nullptr)
     {
@@ -80,10 +80,10 @@ void flatten(Node *root, Node *&prev)
     prev = root;
 }
 
-void flattenBinaryTree1(Node *root)
+void flattenBinaryTree1(TreeNode *root)
 {
-    Node *node = root;
-    Node *prev = nullptr;
+    TreeNode *node = root;
+    TreeNode *prev = nullptr;
     flatten(node, prev);
 }
 
@@ -95,18 +95,18 @@ Repeat this for all sub trees
 Time Complexity : O(N)
 Aux. Space Req. : O(N)
 */
-void flattenBinaryTree2(Node *root)
+void flattenBinaryTree2(TreeNode *root)
 {
     if (root == nullptr)
     {
         return;
     }
-    stack<Node *> st;
+    stack<TreeNode *> st;
     st.push(root);
 
     while (!st.empty())
     {
-        Node *currNode = st.top();
+        TreeNode *currNode = st.top();
         st.pop();
 
         if (currNode->right)
@@ -126,14 +126,14 @@ void flattenBinaryTree2(Node *root)
     }
 }
 
-void flattenBinaryTree3(Node *root)
+void flattenBinaryTree3(TreeNode *root)
 {
-    Node *currNode = root;
+    TreeNode *currNode = root;
     while (currNode != nullptr)
     {
         if (currNode->left != nullptr)
         {
-            Node *prev = currNode->left;
+            TreeNode *prev = currNode->left;
 
             while (prev->right)
             {
@@ -149,13 +149,13 @@ void flattenBinaryTree3(Node *root)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
 
     preOrder(root);
 

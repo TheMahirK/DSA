@@ -10,14 +10,14 @@ Note : A node itself can be its closest common ancestor
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -36,14 +36,14 @@ We can implement this using recursive traversal
 Time Complexity : O(N)
 Aux. Space Req. : O(height)
 */
-Node *getLowestCommonAncestor(Node *root, Node *p, Node *q)
+TreeNode *getLowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
 {
     if (root == nullptr || root == p || root == q)
     {
         return root;
     }
-    Node *left = getLowestCommonAncestor(root->left, p, q);
-    Node *right = getLowestCommonAncestor(root->right, p, q);
+    TreeNode *left = getLowestCommonAncestor(root->left, p, q);
+    TreeNode *right = getLowestCommonAncestor(root->right, p, q);
 
     if (left == nullptr)
     {
@@ -61,20 +61,20 @@ Node *getLowestCommonAncestor(Node *root, Node *p, Node *q)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
 
-    Node *node1 = root->left->left;
-    Node *five = root->left->right;
-    Node *node2 = new Node(8);
+    TreeNode *node1 = root->left->left;
+    TreeNode *five = root->left->right;
+    TreeNode *node2 = new TreeNode(8);
     five->right = node2;
 
-    Node *closestAncestor = getLowestCommonAncestor(root, node1, node2);
+    TreeNode *closestAncestor = getLowestCommonAncestor(root, node1, node2);
 
     cout << "The closest ancestor of " << node1->data << " and " << node2->data << " : "
          << closestAncestor->data;

@@ -1,14 +1,14 @@
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -17,7 +17,7 @@ public:
 };
 
 
-int getMaxHeight(Node *root)
+int getMaxHeight(TreeNode *root)
 {
     if (root == nullptr)
     {
@@ -36,7 +36,7 @@ Aux. Space Req. : O(height of tree)
 */
 
 // This is a helper function for getTreeDiameter1
-void getTreeDiameter(Node *root, int &diameter)
+void getTreeDiameter(TreeNode *root, int &diameter)
 {
     if (root == nullptr)
     {
@@ -51,7 +51,7 @@ void getTreeDiameter(Node *root, int &diameter)
     getTreeDiameter(root->right, diameter);
 }
 
-int getTreeDiameter1(Node *root)
+int getTreeDiameter1(TreeNode *root)
 {
     if (root == nullptr)
     {
@@ -67,7 +67,7 @@ Intuition : Height of tree with 1 node (root node) is 1
 we can use recurrence relation maxHeight = 1 + maxHeight(left tree , right tree)
 */
 
-int getMaxHeight(Node *root, int &diameter)
+int getMaxHeight(TreeNode *root, int &diameter)
 {
     if (root == nullptr)
     {
@@ -85,7 +85,7 @@ Use modify max height function to recursively find diameter of the tree
 Time Complexity : O(N)
 Aux. Space Req. : O(height of tree)
 */
-int getTreeDiameter2(Node *root)
+int getTreeDiameter2(TreeNode *root)
 {
     int diameter = 0;
     getMaxHeight(root, diameter);
@@ -94,19 +94,19 @@ int getTreeDiameter2(Node *root)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    Node *six = root->right->left;
-    root->right->right = new Node(7);
-    Node *seven = root->right->right;
-    seven->right = new Node(0);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    TreeNode *six = root->right->left;
+    root->right->right = new TreeNode(7);
+    TreeNode *seven = root->right->right;
+    seven->right = new TreeNode(0);
 
-    six->right = new Node(9);
-    six->right->right = new Node(10);
+    six->right = new TreeNode(9);
+    six->right->right = new TreeNode(10);
 
     int diameter = getTreeDiameter2(root);
 

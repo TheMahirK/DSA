@@ -1,14 +1,14 @@
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -25,14 +25,14 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-void allTraversals(Node *root)
+void allTraversals(TreeNode *root)
 {
     if (root == nullptr)
     {
         return;
     }
 
-    stack<pair<Node *, int>> st;
+    stack<pair<TreeNode *, int>> st;
     vector<int> preOrder, inOrder, postOrder;
     st.push({root, 1});
 
@@ -89,13 +89,13 @@ void allTraversals(Node *root)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
 
     allTraversals(root);
 

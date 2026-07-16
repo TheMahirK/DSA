@@ -3,14 +3,14 @@
 #include <sstream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -35,19 +35,19 @@ Time Complexity : O(N)
 Aux. Space Req. : O(N)
 */
 
-vector<int> serialize(Node *root)
+vector<int> serialize(TreeNode *root)
 {
     vector<int> ans;
     if (root == nullptr)
     {
         return ans;
     }
-    queue<Node *> q;
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
     {
-        Node *currNode = q.front();
+        TreeNode *currNode = q.front();
         q.pop();
         if (currNode == nullptr)
         {
@@ -72,20 +72,20 @@ Time Complexity : O(N)
 Aux. Space Req. : O(N)
 */
 
-Node *deSerialize(vector<int> &data)
+TreeNode *deSerialize(vector<int> &data)
 {
     if (data.size() == 0)
     {
         return nullptr;
     }
     int i = 0;
-    Node *root = new Node(data[i++]);
-    queue<Node *> q;
+    TreeNode *root = new TreeNode(data[i++]);
+    queue<TreeNode *> q;
     q.push(root);
 
     while (!q.empty())
     {
-        Node *currNode = q.front();
+        TreeNode *currNode = q.front();
         q.pop();
 
         if (data[i] == -1)
@@ -94,7 +94,7 @@ Node *deSerialize(vector<int> &data)
         }
         else
         {
-            Node *leftNode = new Node(data[i]);
+            TreeNode *leftNode = new TreeNode(data[i]);
             currNode->left = leftNode;
             q.push(leftNode);
         }
@@ -105,7 +105,7 @@ Node *deSerialize(vector<int> &data)
         }
         else
         {
-            Node *rightNode = new Node(data[i]);
+            TreeNode *rightNode = new TreeNode(data[i]);
             currNode->right = rightNode;
             q.push(rightNode);
         }
@@ -114,7 +114,7 @@ Node *deSerialize(vector<int> &data)
     return root;
 }
 
-void printInOrder(Node *root)
+void printInOrder(TreeNode *root)
 {
     if (root == nullptr)
     {
@@ -127,13 +127,13 @@ void printInOrder(Node *root)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
 
     cout << "Tree before serialization : ";
     printInOrder(root);
@@ -143,7 +143,7 @@ int main()
     cout << "Serialized string : ";
     display(s);
 
-    Node *root2 = deSerialize(s);
+    TreeNode *root2 = deSerialize(s);
     cout << "Tree after deserialization : ";
     printInOrder(root2);
 

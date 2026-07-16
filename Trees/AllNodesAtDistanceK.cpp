@@ -9,14 +9,14 @@ It is given that the target node always exists in the tree
 #include <unordered_map>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -33,13 +33,13 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-void markParents(Node *root, unordered_map<Node *, Node *> &parentTracker)
+void markParents(TreeNode *root, unordered_map<TreeNode *, TreeNode *> &parentTracker)
 {
-    queue<Node *> q;
+    queue<TreeNode *> q;
     q.push(root);
     while (!q.empty())
     {
-        Node *current = q.front();
+        TreeNode *current = q.front();
         q.pop();
         if (current->left)
         {
@@ -66,13 +66,13 @@ N : for parent tracker, N : for visited tracker , N : for queue
 
 */
 
-vector<int> getKDistanceNodes(Node *root, Node *target, int k)
+vector<int> getKDistanceNodes(TreeNode *root, TreeNode *target, int k)
 {
-    unordered_map<Node *, Node *> parentTracker;
+    unordered_map<TreeNode *, TreeNode *> parentTracker;
     markParents(root, parentTracker);
 
-    unordered_map<Node *, bool> visited;
-    queue<Node *> q;
+    unordered_map<TreeNode *, bool> visited;
+    queue<TreeNode *> q;
     q.push(target);
     visited[target] = true;
     int currLevel = 0;
@@ -87,7 +87,7 @@ vector<int> getKDistanceNodes(Node *root, Node *target, int k)
         currLevel++;
         for (int i = 0; i < size; i++)
         {
-            Node *current = q.front();
+            TreeNode *current = q.front();
             q.pop();
             if (current->left && !visited[current->left])
             {
@@ -118,15 +118,15 @@ vector<int> getKDistanceNodes(Node *root, Node *target, int k)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
 
-    Node *seven = root->right->right;
+    TreeNode *seven = root->right->right;
 
     int k = 2;
 

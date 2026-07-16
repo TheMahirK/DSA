@@ -1,14 +1,14 @@
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -20,16 +20,16 @@ public:
 Intuition : Use two stacks , first to store the left most nodes , second to store the traversed nodes
 */
 
-void traversePostOrder1(Node *root)
+void traversePostOrder1(TreeNode *root)
 {
     // Left , Right , Root
     if (root == nullptr)
     {
         return;
     }
-    stack<Node *> st1;
-    stack<Node *> st2;
-    Node *node = root;
+    stack<TreeNode *> st1;
+    stack<TreeNode *> st2;
+    TreeNode *node = root;
     st1.push(node);
 
     while (!st1.empty())
@@ -57,14 +57,14 @@ void traversePostOrder1(Node *root)
     cout << endl;
 }
 
-void traversePostOrder2(Node *root)
+void traversePostOrder2(TreeNode *root)
 {
     if (root == nullptr)
     {
         return;
     }
-    stack<Node *> st;
-    Node *curr = root;
+    stack<TreeNode *> st;
+    TreeNode *curr = root;
     while (curr != nullptr || !st.empty())
     {
         if (curr != nullptr)
@@ -75,7 +75,7 @@ void traversePostOrder2(Node *root)
 
         else
         {
-            Node *temp = st.top()->right;
+            TreeNode *temp = st.top()->right;
 
             if (temp == nullptr)
             {
@@ -100,13 +100,13 @@ void traversePostOrder2(Node *root)
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
-    root->right->left = new Node(6);
-    root->right->right = new Node(7);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->left = new TreeNode(6);
+    root->right->right = new TreeNode(7);
 
     cout << "Post Order  : "; // 4 5 2 6 7 3 1
     traversePostOrder2(root);

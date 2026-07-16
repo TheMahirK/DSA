@@ -8,14 +8,14 @@ of each other
 #include <iostream>
 using namespace std;
 
-class Node
+class TreeNode
 {
 public:
     int data;
-    Node *left;
-    Node *right;
+    TreeNode *left;
+    TreeNode *right;
 
-    Node(int data, Node *left = nullptr, Node *right = nullptr)
+    TreeNode(int data, TreeNode *left = nullptr, TreeNode *right = nullptr)
     {
         this->data = data;
         this->left = left;
@@ -32,7 +32,7 @@ void display(vector<int> &arr)
     cout << endl;
 }
 
-bool checkSymmeric(Node *root1, Node *root2)
+bool checkSymmeric(TreeNode *root1, TreeNode *root2)
 {
     if (root1 == nullptr || root2 == nullptr)
     {
@@ -56,20 +56,20 @@ Time Complexity : O(N)
 Aux. Space Req. : O(height)
 
 */
-bool isSymmetric(Node *root)
+bool isSymmetric(TreeNode *root)
 {
     return checkSymmeric(root->left, root->right);
 }
 
 int main()
 {
-    Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(2);
-    root->left->left = new Node(3);
-    root->left->right = new Node(4);
-    root->right->left = new Node(4);
-    root->right->right = new Node(3);
+    TreeNode *root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(2);
+    root->left->left = new TreeNode(3);
+    root->left->right = new TreeNode(4);
+    root->right->left = new TreeNode(4);
+    root->right->right = new TreeNode(3);
 
     bool symmetric = isSymmetric(root);
 
