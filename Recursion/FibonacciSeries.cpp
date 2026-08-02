@@ -25,7 +25,7 @@ int fibonacci(int n)
 
 int main()
 {
-    int n = 5;
+    int n = 40;
 
     for (int i = 0; i <= n; i++)
     {
