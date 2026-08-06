@@ -21,11 +21,11 @@ void findSum(int ind, int sum, vector<int> &arr,
 vector<int> subsetSum(vector<int> &arr)
 {
     vector<int> subset;
-    sort(arr.begin(), arr.end());
+    // sort(arr.begin(), arr.end());
     int sum = 0;
 
     findSum(0, sum, arr, subset);
-    // sort(subset.begin(),subset.end());
+    sort(subset.begin(), subset.end());
     return subset;
 }
 
