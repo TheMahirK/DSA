@@ -37,6 +37,9 @@ For every index i , use the concept of pick and not pick to generate subsequence
 do this for all elements from index till last index
 
 Sort the array , and use the duplicate checking condition to avoid duplicates
+
+Time Complexity : O(2^N)
+Aux Space Req. : O(2^N)
 */
 
 void f(int index, vector<int> &arr, vector<int> &currSubseq, vector<vector<int>> &ans)

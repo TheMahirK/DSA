@@ -44,7 +44,7 @@ int gcd1(int m, int n)
    Euclidean Algorithm says :
    Let a and b be two integers such that a≥b>0. By the Division Algorithm,
    there exist unique integers q and r satisfying
-    a=bq+rwhere 0≤r<b
+    a=bq+rwhere 0≤r<
     Then,
     gcd(a,b)=gcd(b,r)
     This process is repeated recursively until the remainder becomes 0. If at some step,
